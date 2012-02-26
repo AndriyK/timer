@@ -1,0 +1,54 @@
+/* reset.css */
+html {margin:0;padding:0;border:0;}
+body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, dialog, figure, footer, header, hgroup, nav, section {margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;}
+article, aside, details, figcaption, figure, dialog, footer, header, hgroup, menu, nav, section {display:block;}
+body {line-height:1.5;background:white;}
+table {border-collapse:separate;border-spacing:0;}
+caption, th, td {text-align:left;font-weight:normal;float:none !important;}
+table, th, td {vertical-align:middle;}
+blockquote:before, blockquote:after, q:before, q:after {content:'';}
+blockquote, q {quotes:"" "";}
+a img {border:none;}
+:focus {outline:0;}
+
+/* typography.css */
+html {font-size:100.01%;}
+body {font-size:75%;color:#222;background:#fff;font-family:"Helvetica Neue", Arial, Helvetica, sans-serif;}
+h1, h2, h3, h4, h5, h6 {font-weight:normal; margin-left:20px}
+
+
+/* custom.css */
+h1 {font-size: 160%}
+h2 {font-size: 150%}
+h3 {font-size: 140%}
+h4 {font-size: 130%}
+h5 {font-size: 120%}
+.round { -moz-border-radius:    10px; -webkit-border-radius: 10px; border-radius: 10px; }
+.margin10 {margin: 10px}
+
+
+/*header menu*/
+header { width: 100%; background-color: #666666;}
+footer {text-align: center; color:#666666; margin-top: 50px;}
+nav ul { margin: 0; padding: 0;}
+nav ul li { list-style-type: none; display: inline-block;padding: 5px 10px}
+nav ul li a {color:#f8f8ff;}
+nav ul li a:hover {text-decoration: none;}
+a.signup_button { margin:200px auto; display: block; width: 190px; color: #f8f8ff; background:#666666;font-size: 150%;
+                  font-weight: bold; padding: 20px; text-align: center}
+
+/*error massages*/
+.field_with_errors { margin-top: 10px; padding: 2px; background-color: red; display: table;}
+.field_with_errors label {color: #fff;}
+#error_explanation {width: 400px;border: 2px solid red;padding: 7px;padding-bottom: 12px;margin-bottom: 20px;
+                    background-color: #f0f0f0;}
+#error_explanation h2 { text-align: left; font-weight: bold; padding: 5px 5px 5px 15px; font-size: 12px;
+                        margin: -7px; background-color: #c00; color: #fff;}
+#error_explanation p { color: #333; margin-bottom: 0; padding: 5px;}
+#error_explanation ul li {font-size: 12px; list-style: square; margin-left: 20px}
+
+/*flash messages*/
+.flash {margin: 10px;}
+.error {color: #ff0000;}
+.success {color: green;}
+.notice {color: #ff8c00;}
