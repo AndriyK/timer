@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_filter :authenticate, :only => [:show]
+  before_filter :authenticate, :only => [:show, :edit, :update]
+  before_filter :correct_user, :only => [:show, :edit, :update]
 
 
   def new
@@ -8,10 +9,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
     @title = @user.name
-  rescue
-    redirect_to root_path
   end
 
 
@@ -27,6 +25,20 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @title = "Edit profile"
+  end
+
+  def update
+    if @user.update_attributes(params[:user])
+      flash[:success] = "Profile updated."
+      redirect_to @user
+    else
+      @title = "Edit profile"
+      render 'edit'
+    end
+  end
+
 
   private
 
@@ -34,5 +46,11 @@ class UsersController < ApplicationController
       deny_access unless signed_in?
     end
 
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_path) unless current_user?(@user)
+    rescue
+      redirect_to root_path
+    end
 
 end
