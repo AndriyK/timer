@@ -15,4 +15,10 @@
 class Work < ActiveRecord::Base
   attr_accessible :date, :time, :duration, :description
   belongs_to :user
+
+  validates :date, :presence => true
+  validates :time, :presence => true
+  validates :duration, :presence => true
+  validates :description, :presence => true
+  validates :user_id, :presence => true
 end

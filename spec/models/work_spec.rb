@@ -16,11 +16,7 @@ require 'spec_helper'
 
 describe Work do
   before(:each) do
-    @user = User.create({
-                      :name => "Example User",
-                      :email => "user@example.com",
-                      :password => "foobar",
-                      :password_confirmation => "foobar"})
+    @user = Factory(:user)
     @attr = { :date => '01/03/2012', :time => '08:30', :duration => '20', :description => "path to work" }
   end
 
@@ -40,6 +36,16 @@ describe Work do
     it "should have the right associated user" do
       @work.user_id.should == @user.id
       @work.user.should == @user
+    end
+  end
+
+  describe "validations" do
+    it "should require a user id" do
+      Work.new(@attr).should_not be_valid
+    end
+
+    it "should require nonblank content" do
+      @user.works.build(:date=>" ", :time=>" ", :duration=>" ", :description => " ").should_not be_valid
     end
   end
 end

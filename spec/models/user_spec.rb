@@ -140,4 +140,24 @@ describe User do
     end
   end
 
+  describe "work associations" do
+    before(:each) do
+      @user = User.create(@attr)
+      @w1 = Factory(:work, :user => @user)
+      @w2 = Factory(:work, :user => @user)
+    end
+
+    it "should have a works attribute" do
+      @user.should respond_to(:works)
+    end
+
+    it "should destroy associated works" do
+      @user.destroy
+      [@w1, @w2].each do |work|
+        Work.find_by_id(work.id).should be_nil
+      end
+    end
+  end
+
+
 end

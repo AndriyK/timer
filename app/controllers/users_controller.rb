@@ -9,6 +9,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @works = @user.works
     @title = @user.name
   end
 

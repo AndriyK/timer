@@ -55,7 +55,7 @@ describe UsersController do
 
   describe "GET 'edit'" do
     before(:each) do
-      @user = User.create!({ :name => "New User", :email => "user@example.com", :password => "foobar", :password_confirmation => "foobar" })
+      @user = Factory(:user)
       test_sign_in(@user)
     end
 
@@ -72,7 +72,7 @@ describe UsersController do
 
   describe "PUT 'update'" do
     before(:each) do
-      @user = User.create!({ :name => "New User", :email => "user@example.com", :password => "foobar", :password_confirmation => "foobar" })
+      @user = Factory(:user)
       test_sign_in(@user)
     end
 
@@ -120,7 +120,7 @@ describe UsersController do
 
   describe "authentication of edit/update pages" do
     before(:each) do
-      @user = User.create!({ :name => "New User", :email => "user@example.com", :password => "foobar", :password_confirmation => "foobar" })
+      @user = Factory(:user)
     end
 
     describe "for non-signed-in users" do
@@ -153,6 +153,5 @@ describe UsersController do
     end
 
   end
-
 
 end

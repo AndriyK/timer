@@ -2,7 +2,7 @@ class CreateWorks < ActiveRecord::Migration
   def self.up
     create_table :works do |t|
       t.date :date
-      t.time :time
+      t.string :time
       t.integer :duration
       t.string :description
       t.integer :user_id

@@ -1,4 +1,9 @@
 <div class="margin10">
     <div><%= link_to "Settings", edit_user_path(current_user) %></div>
-    <%= @user.name %>, <%= @user.email %>
+    <div>Things that was done today</div>
+      <% unless @user.works.empty? %>
+          <table class="works" summary="User works">
+            <%= render @works %>
+          </table>
+      <% end %>
 </div>

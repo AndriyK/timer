@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "FriendlyForwardings" do
 
   it "should forward to the requested page after signin" do
-    user = User.create!({ :name => "New User2", :email => "user2@example.com", :password => "foobar", :password_confirmation => "foobar" })
+    user = Factory(:user)
     visit edit_user_path(user)
     # The test automatically follows the redirect to the signin page.
     fill_in :email,    :with => user.email

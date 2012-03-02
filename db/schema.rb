@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(:version => 20120301204323) do
 
   create_table "works", :force => true do |t|
     t.date     "date"
-    t.time     "time"
+    t.string   "time"
     t.integer  "duration"
     t.string   "description"
     t.integer  "user_id"
