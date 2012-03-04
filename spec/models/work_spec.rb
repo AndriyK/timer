@@ -3,8 +3,8 @@
 # Table name: works
 #
 #  id          :integer         not null, primary key
-#  date        :date
-#  time        :time
+#  from        :datetime
+#  to          :datetime
 #  duration    :integer
 #  description :string(255)
 #  user_id     :integer
@@ -17,7 +17,7 @@ require 'spec_helper'
 describe Work do
   before(:each) do
     @user = Factory(:user)
-    @attr = { :date => '01/03/2012', :time => '08:30', :duration => '20', :description => "path to work" }
+    @attr = { :from => '2012-03-03 08:30', :to => '2012-03-03 08:50', :duration => '20', :description => "path to work" }
   end
 
   it "should create a new instance given valid attributes" do
@@ -44,8 +44,8 @@ describe Work do
       Work.new(@attr).should_not be_valid
     end
 
-    it "should require nonblank content" do
-      @user.works.build(:date=>" ", :time=>" ", :duration=>" ", :description => " ").should_not be_valid
+    it "should require non blank content" do
+      @user.works.build(:from=>" ", :to=>" ", :duration=>" ", :description => " ").should_not be_valid
     end
   end
 end

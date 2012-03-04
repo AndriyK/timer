@@ -1,9 +1,40 @@
 <div class="margin10">
+
     <div><%= link_to "Settings", edit_user_path(current_user) %></div>
     <div>Things that was done today</div>
-      <% unless @user.works.empty? %>
-          <table class="works" summary="User works">
-            <%= render @works %>
-          </table>
-      <% end %>
+    <% unless @user.works.empty? %>
+        <table class="works" summary="User works">
+          <%= render @works %>
+        </table>
+    <% end %>
+
+    <br>
+
+    <%= form_for @work do |f| %>
+      <%= render 'shared/error_messages', :object => f.object %>
+      <!--<div class="field">
+        <%= f.label(:from, "Date") %><br />
+        <%= f.text_field :from, :value => Date.today.to_s %>
+      </div>-->
+      <div class="field">
+        <label>Start</label>
+        <%= time_select("work", "from") %>
+        &nbsp;&nbsp;
+        <label>Finish</label>
+        <%= time_select("work", "to") %>
+      </div>
+      <!--<div class="field">
+        <%= f.label(:to, "Finish") %><br />
+        <%= f.text_field :to %>
+      </div>-->
+
+      <div class="field">
+        <%= f.label :description %><br />
+        <%= f.text_area :description, :size=>"43x4" %>
+      </div>
+      <div class="actions">
+        <%= f.submit "Add" %>
+      </div>
+    <% end %>
+
 </div>

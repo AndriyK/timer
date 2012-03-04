@@ -9,7 +9,10 @@ class UsersController < ApplicationController
   end
 
   def show
+    #todo: make right selecting for current day
+    #@works = @user.works.where('"from" > \'' + Date.today.to_s + "'")
     @works = @user.works
+    @work = Work.new
     @title = @user.name
   end
 
@@ -42,10 +45,6 @@ class UsersController < ApplicationController
 
 
   private
-
-    def authenticate
-      deny_access unless signed_in?
-    end
 
     def correct_user
       @user = User.find(params[:id])

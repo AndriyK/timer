@@ -24,8 +24,8 @@ ActiveRecord::Schema.define(:version => 20120301204323) do
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
 
   create_table "works", :force => true do |t|
-    t.date     "date"
-    t.string   "time"
+    t.datetime "from"
+    t.datetime "to"
     t.integer  "duration"
     t.string   "description"
     t.integer  "user_id"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(:version => 20120301204323) do
     t.datetime "updated_at"
   end
 
-  add_index "works", ["created_at"], :name => "index_works_on_created_at"
+  add_index "works", ["from"], :name => "index_works_on_from"
   add_index "works", ["user_id"], :name => "index_works_on_user_id"
 
 end

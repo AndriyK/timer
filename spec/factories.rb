@@ -6,9 +6,9 @@ Factory.define :user do |user|
 end
 
 Factory.define :work do |work|
-  work.date "03/03/2012"
-  work.time "08:00"
-  work.duration 20
+  work.from "2012-03-03 12:00:00"
+  work.to "2012-03-03 12:10:00"
+  work.duration 10
   work.description "path to work"
   work.association :user
 end

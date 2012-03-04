@@ -1,8 +1,8 @@
 class CreateWorks < ActiveRecord::Migration
   def self.up
     create_table :works do |t|
-      t.date :date
-      t.string :time
+      t.datetime :from
+      t.datetime :to
       t.integer :duration
       t.string :description
       t.integer :user_id
@@ -10,7 +10,7 @@ class CreateWorks < ActiveRecord::Migration
       t.timestamps
     end
     add_index :works, :user_id
-    add_index :works, :created_at
+    add_index :works, :from
   end
 
   def self.down

@@ -3,8 +3,8 @@
 # Table name: works
 #
 #  id          :integer         not null, primary key
-#  date        :date
-#  time        :time
+#  from        :datetime
+#  to          :datetime
 #  duration    :integer
 #  description :string(255)
 #  user_id     :integer
@@ -13,12 +13,12 @@
 #
 
 class Work < ActiveRecord::Base
-  attr_accessible :date, :time, :duration, :description
+  attr_accessible :from, :to, :duration, :description
   belongs_to :user
 
-  validates :date, :presence => true
-  validates :time, :presence => true
-  validates :duration, :presence => true
+  validates :from, :presence => true
+  validates :to, :presence => true
+  #validates :duration, :presence => true
   validates :description, :presence => true
   validates :user_id, :presence => true
 end

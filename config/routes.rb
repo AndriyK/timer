@@ -2,7 +2,7 @@ Timer::Application.routes.draw do
 
   resources :users
   resources :sessions, :only => [:new, :create, :destroy]
-  resources :works, :only => [:edit, :destroy]
+  resources :works, :only => [:edit, :create, :destroy]
 
   match "main/home" => "main#home"
   match "/register" => "users#new"
