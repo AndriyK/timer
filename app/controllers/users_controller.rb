@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
   def show
     #todo: make right selecting for current day
-    #@works = @user.works.where('"from" > \'' + Date.today.to_s + "'")
+    #@works = @user.works.where('created_at > \'' + Time.now.to_s + "'")
     @works = @user.works
     @work = Work.new
     @title = @user.name

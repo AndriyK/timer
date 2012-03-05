@@ -12,22 +12,13 @@
 
     <%= form_for @work do |f| %>
       <%= render 'shared/error_messages', :object => f.object %>
-      <!--<div class="field">
-        <%= f.label(:from, "Date") %><br />
-        <%= f.text_field :from, :value => Date.today.to_s %>
-      </div>-->
       <div class="field">
         <label>Start</label>
-        <%= time_select("work", "from") %>
+        <%= time_select("work", "from", {:minute_step => 10}) %>
         &nbsp;&nbsp;
         <label>Finish</label>
-        <%= time_select("work", "to") %>
+        <%= time_select("work", "to", {:minute_step => 10}) %>
       </div>
-      <!--<div class="field">
-        <%= f.label(:to, "Finish") %><br />
-        <%= f.text_field :to %>
-      </div>-->
-
       <div class="field">
         <%= f.label :description %><br />
         <%= f.text_area :description, :size=>"43x4" %>
