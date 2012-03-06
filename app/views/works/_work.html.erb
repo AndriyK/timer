@@ -3,4 +3,5 @@
   <td><%= work.to %> </td>
   <td><%= work.duration %> </td>
   <td><%= work.description %> </td>
+  <td><%= link_to "delete", work, :method => :delete, :confirm => "You sure?", :title => work.description %></td>
 </tr>

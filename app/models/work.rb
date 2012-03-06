@@ -17,8 +17,6 @@ class Work < ActiveRecord::Base
   belongs_to :user
 
   validates :from, :to , :presence => true, :format => {:with => /201\d-(0|1)\d-\d{2} \d{2}:\d{2}:\d{2}/, :message=>"Wrong start date"}
-  #validates :to, :presence => true
-  #validated :duration, :presence=>true
   validates :description, :presence => true, :length => {:in => 1..255, :message => "Description is to long" }
   validates :user_id, :presence => true
 
