@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation
 
   has_many :works, :dependent => :destroy
+  has_many :categories, :dependent => :destroy
 
   validates :name,:presence => true,
                   :length   => { :maximum => 50 }

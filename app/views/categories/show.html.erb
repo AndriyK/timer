@@ -1,0 +1,33 @@
+<div class="margin10">
+
+  <div>Your category list</div>
+
+  <% unless @user.categories.empty? %>
+      <table class="categories" summary="User's categories">
+        <%= render @categories %>
+      </table>
+  <% end %>
+
+  <br>
+
+  <%= form_for @category do |f| %>
+      <%= render 'shared/error_messages', :object => f.object %>
+      <div class="field">
+        <%= f.label :name %><br />
+        <%= f.text_field :name %>
+      </div>
+      <div class="field">
+        <%= f.label :pcategory %><br />
+        <%= f.text_field :pcategory %>
+      </div>
+      <div class="field">
+        <%= f.label :scope %><br />
+        <%= f.text_field :scope %>
+      </div>
+      <div class="actions">
+        <%= f.submit "Add" %>
+      </div>
+  <% end %>
+
+</div>
+
