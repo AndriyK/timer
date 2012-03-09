@@ -1,0 +1,10 @@
+<h1>Edit category</h1>
+
+<div class="margin10">
+  <%= form_for(@category) do |f| %>
+      <%= render 'fields', :f => f %>
+      <div class="actions">
+        <%= f.submit "Update" %>
+      </div>
+  <% end %>
+</div>

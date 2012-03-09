@@ -10,20 +10,8 @@
 
   <br>
 
-  <%= form_for @category do |f| %>
-      <%= render 'shared/error_messages', :object => f.object %>
-      <div class="field">
-        <%= f.label :name %><br />
-        <%= f.text_field :name %>
-      </div>
-      <div class="field">
-        <%= f.label :pcategory %><br />
-        <%= f.text_field :pcategory %>
-      </div>
-      <div class="field">
-        <%= f.label :scope %><br />
-        <%= f.text_field :scope %>
-      </div>
+  <%= form_for(@category) do |f| %>
+      <%= render 'fields', :f => f %>
       <div class="actions">
         <%= f.submit "Add" %>
       </div>
