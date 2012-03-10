@@ -13,8 +13,9 @@
 #
 
 class Work < ActiveRecord::Base
-  attr_accessible :from, :to, :duration, :description
+  attr_accessible :from, :to, :duration, :description, :category_ids
   belongs_to :user
+  has_and_belongs_to_many :categories
 
   validates :from, :to , :presence => true, :format => {:with => /201\d-(0|1)\d-\d{2} \d{2}:\d{2}:\d{2}/, :message=>"Wrong start date"}
   validates :description, :presence => true, :length => {:in => 1..255, :message => "Description is to long" }

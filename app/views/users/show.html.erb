@@ -25,6 +25,14 @@
         <%= f.label :description %><br />
         <%= f.text_area :description, :size=>"43x4" %>
       </div>
+
+      <% for category in @user.categories %>
+          <div>
+            <%= check_box_tag "work[category_ids][]", category.id, false %>
+            <%= category.name %>
+          </div>
+      <% end %>
+
       <div class="actions">
         <%= f.submit "Add" %>
       </div>
