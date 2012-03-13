@@ -9,9 +9,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    #todo: make right selecting for current day
-    #@works = @user.works.where('created_at > \'' + Time.now.to_s + "'")
-    @works = @user.works
+    @works = @user.works.where('"from" > \'' + date + "'")
+    #@works = @user.works
     @work = Work.new
     @title = @user.name
   end
@@ -53,4 +52,8 @@ class UsersController < ApplicationController
       redirect_to root_path
     end
 
+
+    def date
+      Time.now.utc.strftime("%F")
+    end
 end
