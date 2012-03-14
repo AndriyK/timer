@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
 
   has_many :works, :dependent => :destroy
   has_many :categories, :dependent => :destroy
+  has_many :source_types, :dependent => :destroy
 
   validates :name,:presence => true,
                   :length   => { :maximum => 50 }

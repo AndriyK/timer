@@ -2,6 +2,7 @@
 
     <div><%= link_to "Settings", edit_user_path(current_user) %></div>
     <div><%= link_to "Categories", category_path(current_user) %></div>
+    <div><%= link_to "Resources", source_type_path(current_user) %></div>
 
     <div>Things that was done today</div>
     <% unless @user.works.empty? %>
