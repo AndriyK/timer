@@ -1,0 +1,21 @@
+<div class="margin10">
+
+  <div>Your tags</div>
+
+  <% unless @user.tags.empty? %>
+      <table class="tags" summary="User's source types">
+        <%= render @tags %>
+      </table>
+  <% end %>
+
+  <br>
+
+  <%= form_for(@tag) do |f| %>
+      <%= render 'fields', :f => f %>
+      <div class="actions">
+        <%= f.submit "Add" %>
+      </div>
+  <% end %>
+
+</div>
+

@@ -32,14 +32,14 @@ ActiveRecord::Schema.define(:version => 20120314202307) do
   add_index "categories_works", ["work_id", "category_id"], :name => "index_categories_works_on_work_id_and_category_id", :unique => true
   add_index "categories_works", ["work_id"], :name => "index_categories_works_on_work_id"
 
-  create_table "source_types", :force => true do |t|
+  create_table "tags", :force => true do |t|
     t.string   "name"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "source_types", ["user_id"], :name => "index_source_types_on_user_id"
+  add_index "tags", ["user_id"], :name => "index_tags_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "name"
