@@ -1,0 +1,20 @@
+<div class="margin10">
+
+  <div>Your sources</div>
+
+  <% unless @user.sources.empty? %>
+      <table class="source" summary="User's sources">
+        <%= render @sources %>
+      </table>
+  <% end %>
+
+  <br>
+
+  <%= form_for(@source) do |f| %>
+      <%= render 'fields', :f => f %>
+      <div class="actions">
+        <%= f.submit "Add" %>
+      </div>
+  <% end %>
+
+</div>

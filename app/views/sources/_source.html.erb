@@ -1,0 +1,9 @@
+<tr>
+  <td><%= source.content %> </td>
+  <td>
+    <% for tag in source.tags %>
+        <%= tag.name + '|' %>
+    <% end  %>
+  </td>
+  <td><%= link_to "delete", source, :method => :delete, :confirm => "You sure?", :title => "Delete source" %></td>
+</tr>

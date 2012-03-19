@@ -5,6 +5,8 @@ Timer::Application.routes.draw do
   resources :works
   resources :categories
   resources :tags
+  resources :sources
+
 
   match "main/home" => "main#home"
   match "/register" => "users#new"
