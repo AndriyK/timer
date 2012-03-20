@@ -12,9 +12,6 @@ class SourcesController < ApplicationController
 
   def create
     @source  = current_user.sources.build(params[:source])
-    #params['s'] = @source.inspect
-    #@source.save
-
     if @source.save
       flash[:success] = "Source added!"
     else
@@ -27,6 +24,27 @@ class SourcesController < ApplicationController
   end
 
   def update
+    params[:source][:tag_ids] ||= []
+    if @source.update_attributes(params[:source])
+      flash[:success] = "Source updated."
+      redirect_back_or source_path(current_user)
+    else
+      @title = "Edit source"
+      render 'edit'
+    end
   end
+
+  def destroy
+    @source.destroy
+    redirect_back_or source_path(current_user)
+  end
+
+
+  private
+
+    def authorized_user
+      @source = current_user.sources.find_by_id(params[:id])
+      redirect_to root_path if @source.nil?
+    end
 
 end
