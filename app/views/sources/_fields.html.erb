@@ -9,3 +9,7 @@
       <%= tag.name %>
     </div>
 <% end %>
+<% if with_work? %>
+    <%= hidden_field_tag("source[work_id]", params['work_id']) %>
+<% end %>
+

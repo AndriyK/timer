@@ -10,4 +10,5 @@
   </td>
   <td><%= link_to "edit", edit_work_path(work) %></td>
   <td><%= link_to "delete", work, :method => :delete, :confirm => "You sure?", :title => work.description %></td>
+  <td><%= link_to "add source", source_path(current_user, :work_id => work) %></td>
 </tr>
