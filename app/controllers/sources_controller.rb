@@ -25,6 +25,7 @@ class SourcesController < ApplicationController
 
   def update
     params[:source][:tag_ids] ||= []
+    params[:source][:work_id] ||= ''
     if @source.update_attributes(params[:source])
       flash[:success] = "Source updated."
       redirect_back_or source_path(current_user)
