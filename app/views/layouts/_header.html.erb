@@ -1,13 +1,20 @@
-<header>
-  <nav>
-    <ul>
-      <li><%= link_to "Home", root_path %></li>
-      <% if signed_in? %>
-          <li><%= link_to "Profile", current_user %></li>
-          <li><%= link_to "Sign out", logout_path, :method => :delete %></li>
-      <% else %>
-          <li><%= link_to "Sign in", login_path %></li>
-      <% end %>
-    </ul>
-  </nav>
-</header>
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">Time tracker</a>
+      <ul class="nav pull-right" style="margin-right:40px;">
+        <li class="active">
+          <%= link_to "Home", root_path %>
+        </li>
+        <% if signed_in? %>
+            <li><%= link_to "Profile", current_user %></li>
+            <li><%= link_to "Sign out", logout_path, :method => :delete %></li>
+        <% else %>
+            <li><%= link_to "Sign in", login_path %></li>
+        <% end %>
+        <!--<li><a href="#">Contacts</a></li>
+        <li><a href="#">About</a></li>-->
+      </ul>
+    </div>
+  </div>
+</div> <!-- /navbar -->

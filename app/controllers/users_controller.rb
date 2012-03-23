@@ -9,8 +9,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @works = @user.works.where('"from" > \'' + date + "'")
-    #@works = @user.works
+    @works = @user.works.where( condition )
     @work = Work.new
     @title = @user.name
   end
@@ -52,8 +51,24 @@ class UsersController < ApplicationController
       redirect_to root_path
     end
 
+    def condition
+      day = date
+      '"from" > \'' + day.strftime("%F") + '\' and "from" < \'' +  (day+60*60*24).strftime("%F")  + "'"
+    end
 
     def date
-      Time.now.utc.strftime("%F")
+      if custom_date?
+         return custom_date
+      end
+      Time.now.utc
     end
+
+    def custom_date?
+      params['y'] && params['m'] && params['d']
+    end
+
+    def custom_date
+      return Time.utc(params['y'], params['m'], params['d'])
+    end
+
 end
