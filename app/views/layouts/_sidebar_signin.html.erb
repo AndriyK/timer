@@ -1,0 +1,16 @@
+<div class="span2">
+  <div class="well sidebar-nav">
+    <ul class="nav nav-list">
+      <li class="nav-header">Actions</li>
+      <li class="active"><a href="#">Works</a></li>
+      <li><a href="#">Search</a></li>
+      <li><a href="#">Reports</a></li>
+      <li><%= link_to "Resources", source_path(current_user) %></li>
+      <li class="nav-header">Settings</li>
+      <li><%= link_to "Profile", edit_user_path(current_user) %></li>
+      <li><%= link_to "Categories", category_path(current_user) %></li>
+      <li><%= link_to "Tags", tag_path(current_user) %></li>
+      <li><a href="#">Routins</a></li>
+    </ul>
+  </div><!--/.well -->
+</div><!--/span-->

@@ -1,20 +1,31 @@
-<div class="navbar">
+<div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
-    <div class="container">
+    <div class="container-fluid">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
       <a class="brand" href="#">Time tracker</a>
-      <ul class="nav pull-right" style="margin-right:40px;">
-        <li class="active">
-          <%= link_to "Home", root_path %>
-        </li>
-        <% if signed_in? %>
-            <li><%= link_to "Profile", current_user %></li>
-            <li><%= link_to "Sign out", logout_path, :method => :delete %></li>
-        <% else %>
-            <li><%= link_to "Sign in", login_path %></li>
-        <% end %>
-        <!--<li><a href="#">Contacts</a></li>
-        <li><a href="#">About</a></li>-->
-      </ul>
+      <div class="nav-collapse">
+        <ul class="nav">
+          <% if signed_in? %>
+              <li class="active"><%= link_to "Home", user_path(current_user) %></li>
+          <% else %>
+              <li class="active"><%= link_to "Home", root_path %></li>
+          <% end %>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <ul class="nav pull-right">
+            <% if signed_in? %>
+                <!--<p class="navbar-text pull-right">Logged in as <a href="#">username</a></p>-->
+                <li><%= link_to "Sign out", logout_path, :method => :delete %></li>
+            <% else %>
+                <li><%= link_to "Sign in", login_path %></li>
+            <% end %>
+        </ul>
+      </div><!--/.nav-collapse -->
     </div>
   </div>
 </div> <!-- /navbar -->

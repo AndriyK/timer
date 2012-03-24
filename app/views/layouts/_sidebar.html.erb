@@ -1,0 +1,8 @@
+  <div class="span2">
+    <% form_for(:session, :url => sessions_path) do |f| %>
+        <%= f.text_field :email, :class => 'input-medium', :placeholder=>'Email' %>
+        <%= f.password_field :password, :class => 'input-medium', :placeholder=>'Password' %>
+        <%= f.submit "Sign in", :class=>'btn' %>
+    <% end %>
+    <p>New on the site? To get aware about how your time was spent, please <a href="#">register</a></p>
+  </div>
