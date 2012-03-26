@@ -6,6 +6,14 @@ class MainController < ApplicationController
     @title = 'Home'
   end
 
+  def about
+    @title = 'About timer'
+  end
+
+  def contact
+    @title = 'Contacts'
+  end
+
 
   private
 

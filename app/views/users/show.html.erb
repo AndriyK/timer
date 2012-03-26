@@ -1,19 +1,23 @@
-<div class="margin10">
+<div><%= @current_day %></div>
 
-    <div>Things that was done today</div>
-    <% unless @user.works.empty? %>
-        <table class="works" summary="User works">
-          <%= render @works %>
-        </table>
-    <% end %>
+<div class="alert alert-info"> Timeline will be here</div>
 
-    <br>
+<% unless @user.works.empty? %>
+    <table class="works" summary="User works">
+      <%= render @works %>
+    </table>
+<% end %>
 
-    <%= form_for(@work) do |f| %>
-        <%= render 'works/fields', :f => f %>
-        <div class="actions">
-          <%= f.submit "Add" %>
-        </div>
-    <% end %>
+<%= form_for(@work, :html => { :class => "well form-inline" }) do |f| %>
+  <%= render 'shared/error_messages', :object => f.object %>
+  From
+  <%= time_select("work", "from", {:minute_step => 10}, {:class=>"span1"}) %>
+  &nbsp;
+  To
+  <%= time_select("work", "to", {:minute_step => 10}, {:class=>"span1"}) %>
 
-</div>
+  <%= collection_select(:work, :category_ids, @user.categories, :id, :name, options = {:prompt => '--Category--'}, html_options = {:multiple => false, :size => 1, :class=>"span2"})%>
+
+  <%= f.text_field :description, {:class =>"input-large",:placeholder=>"Activity description"} %>
+  <%= f.submit "Add activity", :class=>"btn btn-primary" %>
+<% end %>

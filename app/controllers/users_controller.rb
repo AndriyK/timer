@@ -12,6 +12,7 @@ class UsersController < ApplicationController
     @works = @user.works.where( condition )
     @work = Work.new
     @title = @user.name
+    @current_day = date.strftime("%A, %d %b %Y")
   end
 
 

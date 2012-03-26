@@ -9,6 +9,8 @@ Timer::Application.routes.draw do
 
 
   match "main/home" => "main#home"
+  match "main/about" => "main#about"
+  match "main/contact" => "main#contact"
   match "/register" => "users#new"
   match '/login',  :to => 'sessions#new'
   match '/logout', :to => 'sessions#destroy'
