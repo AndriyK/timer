@@ -169,7 +169,7 @@ a:hover {
   width: 860px;
 }
 .span12, .container {
-  width: 940px;
+  width: 1024px /*940px*/;
 }
 .offset1 {
   margin-left: 100px;

@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="author" content="">
-  <style type="text/css">
+  <!--<style type="text/css">
       body {
           padding-top: 60px;
           padding-bottom: 40px;
@@ -17,14 +17,14 @@
       .sidebar-nav {
           padding: 9px 0;
       }
-  </style>
+  </style> -->
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
 </head>
     <body>
-        <div class="container-fluid">
-
+        <!--<div class="container-fluid">-->
+        <div class="container">
           <%= render 'layouts/header' %>
 
           <div class="row-fluid">
@@ -35,9 +35,6 @@
             <% end %>
 
             <div class="span10">
-                <% flash.each do |key, value| %>
-                    <div class="flash <%= key %>"><%= value %></div>
-                <% end %>
 
                 <%= yield %>
 

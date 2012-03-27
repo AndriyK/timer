@@ -2,7 +2,7 @@
   <div class="well sidebar-nav">
     <ul class="nav nav-list">
       <li class="nav-header">Actions</li>
-      <li class="<%= active_menu?('users#show') %>"><%= link_to "Works", user_path(current_user) %></li>
+      <li class="<%= active_menu?('users#show', false) %>"><%= link_to "Works", user_path(current_user) %></li>
       <li class="<%= active_menu?('') %>"><a href="#">Search</a></li>
       <li class="<%= active_menu?('') %>"><a href="#">Reports</a></li>
       <li class="<%= active_menu?('sources') %>"><%= link_to "Resources", source_path(current_user) %></li>

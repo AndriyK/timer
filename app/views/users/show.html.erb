@@ -3,9 +3,25 @@
 <div class="alert alert-info"> Timeline will be here</div>
 
 <% unless @user.works.empty? %>
-    <table class="works" summary="User works">
+    <table class="table table-striped">
+      <thead>
+          <tr>
+            <th width="5%">From</th>
+            <th width="5%">To</th>
+            <th width="8%">Duration</th>
+            <th width="42%">Description</th>
+            <th width="12%">Category</th>
+            <th width="5%"></th>
+            <th width="5%"></th>
+            <th width="8%"></th>
+          </tr>
+      </thead>
       <%= render @works %>
     </table>
+<% end %>
+
+<% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
 <% end %>
 
 <%= form_for(@work, :html => { :class => "well form-inline" }) do |f| %>

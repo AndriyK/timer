@@ -1,14 +1,14 @@
 <tr>
-  <td><%= work.from %> </td>
-  <td><%= work.to %> </td>
-  <td><%= work.duration %> </td>
+  <td><%= get_time_part work.from  %> </td>
+  <td><%= get_time_part work.to  %> </td>
+  <td><%= humanize_duration work.duration %></td>
   <td><%= work.description %> </td>
   <td>
     <% for category in work.categories %>
-        <%= category.name + '|' %>
-       <% end  %>
+        <span class="label"><%= category.name %></span>
+    <% end  %>
   </td>
-  <td><%= link_to "edit", edit_work_path(work) %></td>
-  <td><%= link_to "delete", work, :method => :delete, :confirm => "You sure?", :title => work.description %></td>
-  <td><%= link_to "add source", source_path(current_user, :work_id => work) %></td>
+  <td><%= link_to "edit", edit_work_path(work), :class=>"btn btn-mini" %></td>
+  <td><%= link_to "delete", work, :method => :delete, :confirm => "You sure?", :title => work.description, :class=>"btn btn-mini btn-danger" %></td>
+  <td><%= link_to "add source", source_path(current_user, :work_id => work), :class=>"btn btn-mini btn-info" %></td>
 </tr>
