@@ -10,5 +10,21 @@
   </td>
   <td><%= link_to "edit", edit_work_path(work), :class=>"btn btn-mini" %></td>
   <td><%= link_to "delete", work, :method => :delete, :confirm => "You sure?", :title => work.description, :class=>"btn btn-mini btn-danger" %></td>
-  <td><%= link_to "add source", source_path(current_user, :work_id => work), :class=>"btn btn-mini btn-info" %></td>
+  <td>
+    <div class="btn-group">
+      <button class="btn btn-info btn-mini dropdown-toggle" data-toggle="dropdown">
+        Actions
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li>
+          <%= link_to "Add source", source_path(current_user, :work_id => work) %>
+        </li>
+        <li>
+          <%= link_to "Create source", '#'  %>
+        </li>
+      </ul>
+    </div>
+
+  </td>
 </tr>
