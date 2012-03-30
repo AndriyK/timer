@@ -1,4 +1,8 @@
-<div><%= @current_day %></div>
+<div class="current_date">
+  <%= link_to "<<", user_path(current_user, :d=>day_before(@current_day)), :class=>"btn btn-mini " %>
+  <%= @current_day.strftime("%A, %d %b %Y") %>
+  <%= link_to ">>", user_path(current_user, :d=>day_after(@current_day)), :class=>"btn btn-mini " %>
+</div>
 
 <div class="alert alert-info"> Timeline will be here</div>
 

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_filter :authenticate, :only => [:show, :edit, :update]
   before_filter :correct_user, :only => [:show, :edit, :update]
-
+  before_filter :save_custom_date, :only => [:show]
 
   def new
     @title = "Sign Up"
@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     @works = @user.works.where( condition )
     @work = Work.new
     @title = @user.name
-    @current_day = date.strftime("%A, %d %b %Y")
+    @current_day = date
   end
 
 
@@ -65,11 +65,16 @@ class UsersController < ApplicationController
     end
 
     def custom_date?
-      params['y'] && params['m'] && params['d']
+      session['current_date']
     end
 
     def custom_date
-      return Time.utc(params['y'], params['m'], params['d'])
+      parts = session[:current_date].split("-")
+      Time.utc(parts[0], parts[1], parts[2])
+    end
+
+    def save_custom_date
+      session[:current_date] = params['d'] if params['d']
     end
 
 end

@@ -19,4 +19,12 @@ module UsersHelper
     end
   end
 
+  def day_before( date )
+    date - 60*60*24
+  end
+
+  def day_after( date )
+    date + 60*60*24
+  end
+
 end

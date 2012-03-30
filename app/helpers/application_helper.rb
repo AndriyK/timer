@@ -9,7 +9,7 @@ module ApplicationHelper
     end
   end
 
-    def active_menu?(action, only_controller = true)
+  def active_menu?(action, only_controller = true)
     'active' if action == params[:controller] + (only_controller == true ? '' : ('#'+params[:action]))
   end
 
