@@ -16,12 +16,12 @@
         Actions
         <span class="caret"></span>
       </button>
-      <ul class="dropdown-menu">
+      <ul class="dropdown-menu" style="min-width: 100px;">
         <li>
-          <%= link_to "Add source", source_path(current_user, :work_id => work) %>
+          <%= link_to "Add source", source_path(current_user, :work_id => work), :class => "btn-mini" %>
         </li>
         <li>
-          <%= link_to "Create source", '#'  %>
+          <%= link_to "Create routine", '#', :class => "btn-mini"  %>
         </li>
       </ul>
     </div>

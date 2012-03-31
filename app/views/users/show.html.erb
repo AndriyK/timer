@@ -31,10 +31,16 @@
 <%= form_for(@work, :html => { :class => "well form-inline" }) do |f| %>
   <%= render 'shared/error_messages', :object => f.object %>
   From
-  <%= time_select("work", "from", {:minute_step => 10}, {:class=>"span1"}) %>
+  <input id="work_from_1i" type="hidden" value="<%= @current_day.year %>" name="work[from(1i)]">
+  <input id="work_from_2i" type="hidden" value="<%= @current_day.month %>" name="work[from(2i)]">
+  <input id="work_from_3i" type="hidden" value="<%= @current_day.day %>" name="work[from(3i)]">
+  <%= time_select("work", "from", {:minute_step => 10, :ignore_date=>true}, {:class=>"span1"}) %>
   &nbsp;
   To
-  <%= time_select("work", "to", {:minute_step => 10}, {:class=>"span1"}) %>
+  <input id="work_to_1i" type="hidden" value="<%= @current_day.year %>" name="work[to(1i)]">
+  <input id="work_to_2i" type="hidden" value="<%= @current_day.month %>" name="work[to(2i)]">
+  <input id="work_to_3i" type="hidden" value="<%= @current_day.day %>" name="work[to(3i)]">
+  <%= time_select("work", "to", {:minute_step => 10, :ignore_date=>true}, {:class=>"span1"}) %>
 
   <%= collection_select(:work, :category_ids, @user.categories, :id, :name, options = {:prompt => '--Category--'}, html_options = {:multiple => false, :size => 1, :class=>"span2"})%>
 

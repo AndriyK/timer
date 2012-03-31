@@ -17,8 +17,8 @@ class Work < ActiveRecord::Base
   belongs_to :user
   has_and_belongs_to_many :categories
 
-  validates :from, :to , :presence => true, :format => {:with => /201\d-(0|1)\d-\d{2} \d{2}:\d{2}:\d{2}/, :message=>"Wrong start date"}
-  validates :description, :presence => true, :length => {:in => 1..255, :message => "Description is to long" }
+  validates :from, :to , :presence => true, :format => {:with => /201\d-(0|1)\d-\d{2} \d{2}:\d{2}:\d{2}/, :message=>"Wrong time interval"}
+  validates :description, :presence => true, :length => {:in => 1..255, :message => "Description has not correct length" }
   validates :user_id, :presence => true
 
   before_save :set_duration

@@ -7,7 +7,7 @@ class WorksController < ApplicationController
     if @work.save
       flash[:success] = "Activity added!"
     else
-      flash[:error] = "Sorry, activity wasn't added."
+      flash[:error] = "Sorry, activity wasn't added. Reason: " + @work.errors.full_messages.first
     end
     redirect_to current_user
   end

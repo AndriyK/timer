@@ -1,8 +1,11 @@
-<div class="margin10">
-  <%= form_for(@user) do |f| %>
+<%= form_for(@user, :html => { :class => "well"}) do |f| %>
+    <fieldset>
+
       <%= render 'fields', :f => f %>
-      <div class="actions">
-        <%= f.submit "Sign up" %>
+
+      <div class="form-actions">
+        <%= f.submit "Sign up", :class => "btn btn-primary" %>
       </div>
-  <% end %>
-</div>
+
+    </fieldset>
+<% end %>
