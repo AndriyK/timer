@@ -1,21 +1,33 @@
-<div class="margin10">
+<% unless @user.categories.empty? %>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th width="5%">Category name</th>
+      <th width="5%">Parent category</th>
+      <th width="8%">Scope</th>
+      <th width="5%"></th>
+      <th width="8%"></th>
+    </tr>
+    </thead>
 
-  <div>Your category list</div>
+    <%= render @categories %>
 
-  <% unless @user.categories.empty? %>
-      <table class="categories" summary="User's categories">
-        <%= render @categories %>
-      </table>
-  <% end %>
+  </table>
+<% end %>
 
-  <br>
+<%= form_for(@category, :html => { :class => "well form-inline" }) do |f| %>
+    <fieldset>
 
-  <%= form_for(@category) do |f| %>
+      <legend>Add new category</legend>
+
+      <% flash.each do |key, value| %>
+          <div class="alert alert-<%= key %>"><%= value %></div>
+      <% end %>
+
       <%= render 'fields', :f => f %>
-      <div class="actions">
-        <%= f.submit "Add" %>
-      </div>
-  <% end %>
 
-</div>
+      <%= f.submit "Add category", :class=>"btn btn-primary" %>
+
+    </fieldset>
+<% end %>
 

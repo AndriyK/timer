@@ -1,7 +1,7 @@
 <tr>
   <td><%= category.name %> </td>
-  <td><%= category.pcategory %> </td>
+  <td><%= get_category_name(category.pcategory) %> </td>
   <td><%= category.scope %> </td>
-  <td><%= link_to "edit", edit_category_path(category) %></td>
-  <td><%= link_to "delete", category, :method => :delete, :confirm => "You sure?", :title => category.name %></td>
+  <td><%= link_to "edit", edit_category_path(category), :class=>"btn btn-mini" %></td>
+  <td><%= link_to "delete", category, :method => :delete, :confirm => "You sure?", :title => category.name, :class=>"btn btn-mini btn-danger" %></td>
 </tr>

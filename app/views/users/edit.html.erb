@@ -1,10 +1,13 @@
-<h1>Edit profile</h1>
+<%= form_for(@user, :html => { :class => "well"}) do |f| %>
+    <fieldset>
 
-<div class="margin10">
-    <%= form_for(@user) do |f| %>
+        <legend>Please update profile information</legend>
+
         <%= render 'fields', :f => f %>
-        <div class="actions">
-          <%= f.submit "Update" %>
+
+        <div class="form-actions">
+          <%= f.submit "Update", :class => "btn btn-primary" %>
         </div>
-    <% end %>
-</div>
+
+    </fieldset>
+<% end %>

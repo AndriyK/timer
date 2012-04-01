@@ -1,20 +1,23 @@
 <%= render 'shared/error_messages', :object => f.object %>
-<div class="field">
+
+<div class="control-group">
   <label>Start</label>
-  <%= time_select("work", "from", {:minute_step => 10}) %>
-  &nbsp;&nbsp;
+  <%= time_select("work", "from", {:minute_step => 10}, {:class=>"span1"}) %>
   <label>Finish</label>
-  <%= time_select("work", "to", {:minute_step => 10}) %>
+  <%= time_select("work", "to", {:minute_step => 10}, {:class=>"span1"}) %>
 </div>
 
-<% for category in current_user.categories %>
-    <div>
-      <%= check_box_tag "work[category_ids][]", category.id, @work.categories.include?(category) %>
-      <%= category.name %>
-    </div>
-<% end %>
+<div class="control-group">
+  <label>Please check related categories</label>
+  <% for category in current_user.categories %>
+      <div style="padding-left: 10px;">
+        <%= check_box_tag "work[category_ids][]", category.id, @work.categories.include?(category) %>
+          <%= category.name %>
+      </div>
+  <% end %>
+</div>
 
-<div class="field">
-  <%= f.label :description %><br />
+<div class="control-group">
+  <%= f.label :description %>
   <%= f.text_area :description, :size=>"43x4" %>
 </div>
