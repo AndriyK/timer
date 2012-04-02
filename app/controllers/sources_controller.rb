@@ -6,9 +6,13 @@ class SourcesController < ApplicationController
   def show
     @user = current_user
     @sources = @user.sources
-    @source = Source.new
     @title = @user.name + ' sources'
   end
+
+  def new
+    @source = Source.new
+  end
+
 
   def create
     @source  = current_user.sources.build(params[:source])

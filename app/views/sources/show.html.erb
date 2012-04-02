@@ -1,20 +1,13 @@
-<div class="margin10">
+<div style="padding: 5px;">
+    <%= link_to "Create resource", new_source_path, :class => "btn btn-primary" %>
+</div>
 
-  <div>Your sources</div>
+<% unless @user.sources.empty? %>
 
-  <% unless @user.sources.empty? %>
-      <table class="source" summary="User's sources">
-        <%= render @sources %>
-      </table>
-  <% end %>
+    <%= render @sources %>
 
-  <br>
+<% end %>
 
-  <%= form_for(@source) do |f| %>
-      <%= render 'fields', :f => f %>
-      <div class="actions">
-        <%= f.submit "Add" %>
-      </div>
-  <% end %>
-
+<div>
+    <%= link_to "Create resource", new_source_path, :class => "btn btn-primary" %>
 </div>

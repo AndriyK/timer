@@ -1,11 +1,32 @@
-<tr>
-  <td><%= source.content %> </td>
-  <td>
+<div class="well">
+  <div class="pull-left">
+    Created at <%= source.created_at.strftime("%A, %d %b %Y") %>
+  </div>
+  <div class="pull-right">
+    Associated work link: <%= source.work_id %>
+  </div>
+  <div class="clearfix"></div>
+
+  <hr style="margin-top:0px;">
+
+  <h3>Title will be here</h3>
+  <p>
+    <%= source.content %>    
+  </p>
+
+  <div class="pull-left">
     <% for tag in source.tags %>
-        <%= tag.name + '|' %>
+        <span class="label label-warning"><%= tag.name %></span>
     <% end  %>
-  </td>
-  <td><%= source.work_id %> </td>
-  <td><%= link_to "edit", edit_source_path(source) %></td>
-  <td><%= link_to "delete", source, :method => :delete, :confirm => "You sure?", :title => "Delete source" %></td>
-</tr>
+  </div>
+  <div class="pull-right">
+    Actions:
+    <%= link_to "edit", edit_source_path(source), :class=>"btn btn-mini" %>
+    <%= link_to "delete", source, :method => :delete, :confirm => "You sure?", :title => "Delete source", :class=>"btn btn-mini btn-danger" %>
+  </div>
+  <div class="clearfix"></div>
+
+</div>
+
+
+

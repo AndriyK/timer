@@ -1,21 +1,30 @@
-<div class="margin10">
+<% unless @user.tags.empty? %>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Tag</th>
+        <th></th>
+      </tr>
+      </thead>
 
-  <div>Your tags</div>
+      <%= render @tags %>
 
-  <% unless @user.tags.empty? %>
-      <table class="tags" summary="User's source types">
-        <%= render @tags %>
-      </table>
-  <% end %>
+    </table>
+<% end %>
 
-  <br>
+<%= form_for(@tag, :html => { :class => "well form-inline" }) do |f| %>
+    <fieldset>
 
-  <%= form_for(@tag) do |f| %>
+      <legend>Add new tag</legend>
+
+      <% flash.each do |key, value| %>
+          <div class="alert alert-<%= key %>"><%= value %></div>
+      <% end %>
+
       <%= render 'fields', :f => f %>
-      <div class="actions">
-        <%= f.submit "Add" %>
-      </div>
-  <% end %>
 
-</div>
+      <%= f.submit "Add tag", :class=>"btn btn-primary" %>
+
+    </fieldset>
+<% end %>
 

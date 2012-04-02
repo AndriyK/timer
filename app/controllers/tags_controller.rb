@@ -14,7 +14,7 @@ class TagsController < ApplicationController
     if @tag.save
       flash[:success] = "Tag created!"
     else
-      flash[:error] = "Tag was not created!"
+      flash[:error] = "Tag was not added!"
     end
     redirect_to tag_path(current_user)
   end
