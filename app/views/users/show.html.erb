@@ -30,20 +30,38 @@
 
 <%= form_for(@work, :html => { :class => "well form-inline" }) do |f| %>
   <%= render 'shared/error_messages', :object => f.object %>
-  From
-  <input id="work_from_1i" type="hidden" value="<%= @current_day.year %>" name="work[from(1i)]">
-  <input id="work_from_2i" type="hidden" value="<%= @current_day.month %>" name="work[from(2i)]">
-  <input id="work_from_3i" type="hidden" value="<%= @current_day.day %>" name="work[from(3i)]">
-  <%= time_select("work", "from", {:minute_step => 10, :ignore_date=>true}, {:class=>"span1"}) %>
-  &nbsp;
-  To
-  <input id="work_to_1i" type="hidden" value="<%= @current_day.year %>" name="work[to(1i)]">
-  <input id="work_to_2i" type="hidden" value="<%= @current_day.month %>" name="work[to(2i)]">
-  <input id="work_to_3i" type="hidden" value="<%= @current_day.day %>" name="work[to(3i)]">
-  <%= time_select("work", "to", {:minute_step => 10, :ignore_date=>true}, {:class=>"span1"}) %>
 
-  <%= collection_select(:work, :category_ids, @user.categories, :id, :name, options = {:prompt => '--Category--'}, html_options = {:multiple => false, :size => 1, :class=>"span2"})%>
+    From
+    <input id="work_from_1i" type="hidden" value="<%= @current_day.year %>" name="work[from(1i)]">
+    <input id="work_from_2i" type="hidden" value="<%= @current_day.month %>" name="work[from(2i)]">
+    <input id="work_from_3i" type="hidden" value="<%= @current_day.day %>" name="work[from(3i)]">
+    <%= time_select("work", "from", {:minute_step => 10, :ignore_date=>true}, {:class=>"span1"}) %>
 
-  <%= f.text_field :description, {:class =>"input-large",:placeholder=>"Activity description"} %>
-  <%= f.submit "Add activity", :class=>"btn btn-primary" %>
+    &nbsp;To
+    <input id="work_to_1i" type="hidden" value="<%= @current_day.year %>" name="work[to(1i)]">
+    <input id="work_to_2i" type="hidden" value="<%= @current_day.month %>" name="work[to(2i)]">
+    <input id="work_to_3i" type="hidden" value="<%= @current_day.day %>" name="work[to(3i)]">
+    <%= time_select("work", "to", {:minute_step => 10, :ignore_date=>true}, {:class=>"span1"}) %>
+
+    <%= collection_select(:work, :category_ids, @user.categories, :id, :name, options = {:prompt => '--Category--'}, html_options = {:multiple => false, :size => 1, :class=>"span2"})%>
+
+    <%= f.text_field :description, {:class =>"input-large",:placeholder=>"Activity description"} %>
+    <%= f.submit "Add activity", :class=>"btn btn-primary" %>
+
 <% end %>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#work_category_ids").change(function () {
+            selected = $("#work_category_ids :selected");
+            // add hidden fields with selected value and label with category name
+            $("#work_category_ids").before( '<input type="hidden" name="work[category_ids][]" value="'+ selected.val() +'"><span class="label form_label">' + selected.text() + '</span>' );
+            // remove selected item
+            selected.remove();
+            // change text for first element
+            $("#work_category_ids :first").text("--One more category--");
+        });
+
+    });
+</script>
