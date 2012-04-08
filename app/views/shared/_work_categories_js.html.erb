@@ -1,0 +1,41 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#work_category_ids").change(function () {
+            selected = $("#work_category_ids :selected");
+            // add hidden fields with selected value and label with category name
+            category_span = $(
+                    '<span class="selected_category label">' + selected.text() + '<img src="/images/del.png"/>' +
+                            '<input type="hidden" name="work[category_ids][]" value="'+ selected.val() +'"></span>'
+            );
+            $(this).before(category_span);
+
+            // remove selected item
+            selected.remove();
+            // change text for first element
+            if( $("option",this).size() > 1 ) {
+                $(":first", this).text("--One more category--");
+            } else {
+                $(":first", this).text("--No categories--");
+            }
+
+
+            // add event listener for created element
+            category_span.click( function () {
+                // restore deleted element in select
+                //// get category id and name
+                category_id = $("input", $(this)).attr("value");
+                category_name = $(this).text();
+                //// add element to select
+                category_select = $("#work_category_ids");
+                category_select.append( $('<option value="'+category_id+'">'+category_name+'</option>'));
+                if( $("option",category_select).size() == 2 ) {
+                    $(":first", category_select).text("--One more category--");
+                }
+
+                // delete label
+                $(this).remove();
+            });
+        });
+    });
+</script>

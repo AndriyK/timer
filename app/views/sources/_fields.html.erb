@@ -13,3 +13,15 @@
     <%= hidden_field_tag("source[work_id]", params['work_id']) %>
 <% end %>
 
+
+<!-- for future development - autocomplete for tags
+<input id="tag_input" type="text" data-provide="typeahead" placeholder="Tag name">
+
+<script language="javascript">
+  $(document).ready( function (){
+      var tags = ['thouts', 'books', 'rails', 'notes'].sort();
+      $('#tag_input').typeahead({source: tags, items:5});
+  });
+</script>
+-->
+
