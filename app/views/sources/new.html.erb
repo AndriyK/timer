@@ -1,7 +1,13 @@
+<%= form_for(@source, :html => { :class => "well" }) do |f| %>
+    <fieldset>
 
-<%= form_for(@source) do |f| %>
-    <%= render 'fields', :f => f %>
-    <div class="actions">
-      <%= f.submit "Add" %>
-    </div>
+      <legend>Content</legend>
+
+      <%= render 'fields', :f => f %>
+
+      <div class="form-actions">
+        <%= f.submit "Add", :class => "btn btn-primary" %>
+      </div>
+
+    </fieldset>
 <% end %>

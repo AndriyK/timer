@@ -1,6 +1,19 @@
-<div style="padding: 5px;">
-    <%= link_to "Add content", new_source_path, :class => "btn btn-primary" %>
+
+<form class="form-search form-horizontal pull-left">
+  Filter content by tag:
+  <input type="text" class="input-mini search-query">
+  <button type="submit" class="btn btn-mini">Filter</button>
+</form>
+
+
+<div class="pull-right" style="padding-top: 5px;">
+    <%= link_to "New content", new_source_path, :class=>'btn btn-info btn-mini' %>
 </div>
+<div class="clearfix"></div>
+
+<% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+<% end %>
 
 <% unless @user.sources.empty? %>
 
@@ -8,6 +21,7 @@
 
 <% end %>
 
-<div>
-    <%= link_to "Add content", new_source_path, :class => "btn btn-primary" %>
+<div class="pull-right">
+  <%= link_to "Add content", new_source_path, :class=>'btn btn-info btn-mini' %>
 </div>
+<div class="clearfix"></div>

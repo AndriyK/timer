@@ -1,0 +1,15 @@
+
+<%= javascript_include_tag 'cleditor/jquery.cleditor' %>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#source_content").cleditor(
+                {
+                    controls:     // controls to add to the toolbar
+                            "bold italic underline strikethrough subscript superscript | font size " +
+                                    "style | color highlight removeformat | bullets numbering | outdent " +
+                                    "indent | alignleft center alignright justify | " +
+                                    "rule image link unlink"
+                }
+        );
+    });
+</script>

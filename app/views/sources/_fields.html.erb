@@ -1,18 +1,19 @@
 <%= render 'shared/error_messages', :object => f.object %>
-<div class="field">
-  <%= f.label :content %><br />
-  <%= f.text_area :content, :size=>"43x4" %>
-</div>
+
+<%= f.text_area :content, :size=>"43x4" %>
+
 <% for tag in current_user.tags %>
     <div>
       <%= check_box_tag "source[tag_ids][]", tag.id, source_tag?(tag)%>
       <%= tag.name %>
     </div>
 <% end %>
+
 <% if with_work? %>
     <%= hidden_field_tag("source[work_id]", params['work_id']) %>
 <% end %>
 
+<%= render 'shared/sources_wysiwyg_js' %>
 
 <!-- for future development - autocomplete for tags
 <input id="tag_input" type="text" data-provide="typeahead" placeholder="Tag name">
