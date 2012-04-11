@@ -11,6 +11,7 @@
   <%= f.text_area :content, :size=>"5x5" %>
 </div>
 
+<!--
 <div class="control-group">
   <%= f.label "Related tags" %>
     <% for tag in current_user.tags %>
@@ -18,5 +19,8 @@
           <%= tag.name %>
     <% end %>
 </div>
+-->
 
 <%= render 'shared/sources_wysiwyg_js' %>
+
+<%= render 'shared/sources_tagit_js' %>

@@ -1,0 +1,23 @@
+<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+<%= javascript_include_tag 'tagit/tag-it' %>
+
+<script>
+    $(document).ready(function() {
+        //var sampleTags = ['php', 'work', 'rails'];
+        var sampleTags = [<%= tag_list %>];
+
+        $('#singleFieldTags').tagit({
+            availableTags: sampleTags,
+            // This will make Tag-it submit a single form value, as a comma-delimited field.
+            singleField: true,
+            singleFieldNode: $('#mySingleField')
+        });
+    });
+</script>
+
+<div style="width:54%;">
+  <input id="mySingleField" name="source[tags]" type="hidden" value="<%= related_tags %>" />
+  Related tags
+  <ul id="singleFieldTags"></ul>
+</div>

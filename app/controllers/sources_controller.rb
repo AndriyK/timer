@@ -2,6 +2,7 @@ class SourcesController < ApplicationController
 
   before_filter :authenticate
   before_filter :authorized_user, :only => [:destroy, :edit, :update]
+  before_filter :prepare_tags_id, :only=>[:create, :update]
 
   def show
     @user = current_user
@@ -50,6 +51,22 @@ class SourcesController < ApplicationController
     def authorized_user
       @source = current_user.sources.find_by_id(params[:id])
       redirect_to root_path if @source.nil?
+    end
+
+    def prepare_tags_id
+      tags_ids = []
+      if params[:source][:tags]
+        tags = params[:source][:tags].split(',')
+        tags.each do |tag|
+          user_tag = current_user.tags.find_by_name(tag)
+          unless user_tag then
+            user_tag = current_user.tags.create(:name=>tag)
+          end
+          tags_ids << user_tag.id if user_tag
+        end
+        params[:source][:tag_ids] = tags_ids if tags_ids
+        params[:source].delete("tags")
+      end
     end
 
 end

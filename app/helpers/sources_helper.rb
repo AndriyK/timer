@@ -8,4 +8,26 @@ module SourcesHelper
   rescue
     nil
   end
+
+  def tag_list
+    tags = current_user.tags
+    if tags
+      tag_names = []
+      tags.each do |tag|
+         tag_names << "\'#{tag.name}\'"
+      end
+      tag_names.join(',')
+    else
+       ''
+    end
+  end
+
+  def related_tags
+    tags = []
+    @source.tags.each do |tag|
+      tags << tag.name
+    end
+    tags.join(',')
+  end
+
 end
