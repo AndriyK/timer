@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: categories
+#
+#  id         :integer         not null, primary key
+#  name       :string(255)
+#  pcategory  :integer
+#  scope      :string(255)
+#  user_id    :integer
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class Category < ActiveRecord::Base
   attr_accessible :name, :pcategory, :scope
 

@@ -10,3 +10,8 @@
 .selected_category:hover {
     cursor: pointer;
 }
+
+.time {
+    width: 50px;
+}
+

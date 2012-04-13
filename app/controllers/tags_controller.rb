@@ -1,6 +1,6 @@
 class TagsController < ApplicationController
   before_filter :authenticate
-  before_filter :authorized_user, :only => [:destroy]
+  before_filter :authorized_user, :only => [:destroy, :edit, :update]
 
   def show
     @user = current_user
@@ -14,10 +14,21 @@ class TagsController < ApplicationController
     if @tag.save
       flash[:success] = "Tag created!"
     else
-      flash[:error] = "Tag was not added!"
+      flash[:error] = "Tag was not added! Reason: " + @tag.errors.full_messages.first
     end
     redirect_to tag_path(current_user)
   end
+
+  def update
+    if @tag.update_attributes(params[:tag])
+      flash[:success] = "Tag updated."
+      redirect_to tag_path(current_user)
+    else
+      @title = "Edit tag"
+      render 'edit'
+    end
+  end
+
 
   def destroy
     @tag.destroy

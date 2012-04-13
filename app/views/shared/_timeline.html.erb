@@ -1,1 +1,38 @@
-<div class="alert alert-info"> Timeline will be here</div>
+<div class="alert alert-info" style="padding-left: 5px; padding-right: 5px;">
+  <table width="100%" border=1>
+    <tr>
+      <% 24.times do |i| %>
+			<td align="center" colspan="6"> <%= (i<10 ? "0#{i}":"#{i}") %> </td>
+      <% end %>
+    </tr>
+    <tr height="10px;">
+      <%
+      colors = ['green', 'yellow', 'white']
+	  color = colors[0]
+	  144.times do |i|
+        color = colors[rand(3)] if i%6 == 0
+      %>
+        <td style="background-color: <%=color%>;" class="timeline_minutes" id="<%= i*10%>"></td>
+      <% end %>
+    </tr>
+  </table>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".timeline_minutes").click( function (){
+                    min = $(this).attr("id");
+                    console.log( min );
+                    if( min > 60) {
+                        time = Math.floor(min/60) + 'h ' + min%60 + ' min';
+                    }else{
+                        time = '0 h ' + min + ' min';
+                    }
+
+                    console.log( time );
+                    //alert('time element clicked:'+min);
+                }
+        );
+    });
+</script>

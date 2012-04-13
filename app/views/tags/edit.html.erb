@@ -1,7 +1,7 @@
-<%= form_for(@category, :html => { :class => "well form-inline" }) do |f| %>
+<%= form_for(@tag, :html => { :class => "well form-inline" }) do |f| %>
     <fieldset>
 
-      <legend>Edit category</legend>
+      <legend>Change tag</legend>
 
       <% flash.each do |key, value| %>
           <div class="alert alert-<%= key %>"><%= value %></div>
@@ -9,7 +9,7 @@
 
       <%= render 'fields', :f => f %>
 
-      <%= f.submit "Update category", :class=>"btn btn-primary" %>
+      <%= f.submit "Update tag", :class=>"btn btn-primary" %>
 
     </fieldset>
 <% end %>

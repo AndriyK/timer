@@ -15,14 +15,14 @@
   </table>
 <% end %>
 
+<% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+<% end %>
+
 <%= form_for(@category, :html => { :class => "well form-inline" }) do |f| %>
     <fieldset>
 
       <legend>Add new category</legend>
-
-      <% flash.each do |key, value| %>
-          <div class="alert alert-<%= key %>"><%= value %></div>
-      <% end %>
 
       <%= render 'fields', :f => f %>
 

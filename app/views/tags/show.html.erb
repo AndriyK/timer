@@ -4,6 +4,7 @@
       <tr>
         <th>Tag</th>
         <th></th>
+        <th></th>
       </tr>
       </thead>
 
@@ -12,14 +13,14 @@
     </table>
 <% end %>
 
+<% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+<% end %>
+
 <%= form_for(@tag, :html => { :class => "well form-inline" }) do |f| %>
     <fieldset>
 
       <legend>Add new tag</legend>
-
-      <% flash.each do |key, value| %>
-          <div class="alert alert-<%= key %>"><%= value %></div>
-      <% end %>
 
       <%= render 'fields', :f => f %>
 

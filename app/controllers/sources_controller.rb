@@ -20,7 +20,7 @@ class SourcesController < ApplicationController
     if @source.save
       flash[:success] = "Source added!"
     else
-      flash[:error] = "Sorry, source wasn't added."
+      flash[:error] = "Sorry, content wasn't added. Reason: " + @source.errors.full_messages.first
     end
     redirect_to source_path(current_user)
   end
