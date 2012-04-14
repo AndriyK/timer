@@ -2,6 +2,6 @@
 
 <%= f.text_field :name, {:placeholder=>"Category name"} %>
 
-<%= collection_select(:category, :pcategory, get_possible_parent_categories(f.object), :id, :name, options ={:prompt => "--Select parent category--"})%>
+<%= collection_select(:category, :pcategory, get_possible_parent_categories(f.object), :id, :name, options = { :include_blank => "-- Parent category--"})%>
 
 <%= f.text_field :scope, {:placeholder=>"Scope"} %>

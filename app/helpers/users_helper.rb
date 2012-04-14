@@ -27,4 +27,8 @@ module UsersHelper
     date + 60*60*24
   end
 
+  def get_name_for_timeline date
+    date.hour*60 + date.min
+  end
+
 end

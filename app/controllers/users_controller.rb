@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @works = @user.works.where( condition )
+    @works = @user.works.where( condition ).order("\"from\"")
     @work = Work.new
     @title = @user.name
     @current_day = date

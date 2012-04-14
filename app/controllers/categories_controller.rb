@@ -6,7 +6,7 @@ class CategoriesController < ApplicationController
 
   def show
     @user = current_user
-    @categories = @user.categories.order("pcategory, name")
+    @categories = @user.categories.order("name")
     @category = Category.new
     @title = @user.name + ' categories'
   end

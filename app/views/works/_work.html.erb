@@ -1,6 +1,6 @@
-<tr>
-  <td><%= get_time_part work.from  %> </td>
-  <td><%= get_time_part work.to  %> </td>
+<tr class="activity">
+  <td class="activity_start" name="<%= get_name_for_timeline work.from%>"><%= get_time_part work.from  %> </td>
+  <td class="activity_end" name="<%= get_name_for_timeline work.to%>"><%= get_time_part work.to  %> </td>
   <td><%= humanize_duration work.duration %></td>
   <td><%= work.description %> </td>
   <td>
@@ -28,3 +28,24 @@
 
   </td>
 </tr>
+
+
+<script type="text/javascript">
+    $(document).ready( buildTimeline() );
+
+    function buildTimeline () {
+        // get first work line
+        $("tr.activity").each( function(){
+            // get start and finish IDs
+            start = $("td.activity_start", this).attr("name")
+            finish = $("td.activity_end", this).attr("name");
+
+            // change color for activity start block
+            while (start < finish)
+            {
+                $("#"+start).css("background-color", "green");
+                start++;
+            }
+         });
+    }
+</script>
