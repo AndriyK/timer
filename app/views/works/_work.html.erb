@@ -2,7 +2,7 @@
   <td class="activity_start" name="<%= get_name_for_timeline work.from%>"><%= get_time_part work.from  %> </td>
   <td class="activity_end" name="<%= get_name_for_timeline work.to%>"><%= get_time_part work.to  %> </td>
   <td><%= humanize_duration work.duration %></td>
-  <td><%= work.description %> </td>
+  <td class="activity_description"><%= work.description %> </td>
   <td>
     <% for category in work.categories %>
         <span class="label"><%= category.name %></span>
@@ -41,11 +41,44 @@
             finish = $("td.activity_end", this).attr("name");
 
             // change color for activity start block
+            tooltip_text = getTimeFromId(start) + ' - ' + getTimeFromId(finish) + ' ' +$("td.activity_description", this).html();
+
             while (start < finish)
             {
+                // change color of filled interval
                 $("#"+start).css("background-color", "green");
+
+                // chage tool tip text
+                $("#"+start).attr("data-original-title", tooltip_text) ;
+
                 start++;
             }
          });
     }
+
+    function getTimeFromId( min ){
+        //min = $(this).attr("id");
+        if( min >= 60) {
+            time = (
+                    Math.floor(min/60)<10
+                            ? '0'+Math.floor(min/60)
+                            : Math.floor(min/60)
+                    )
+                    + ':'
+                    + (
+                    min%60 == 0
+                            ? '00'
+                            : min%60
+                    );
+        }else{
+            time = '00:' + (
+                    min==0
+                            ? '00'
+                            : min
+                    );
+        }
+
+        return time
+    }
+
 </script>

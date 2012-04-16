@@ -8,7 +8,7 @@
 </div>
 
 <div class="control-group">
-  <label>Please check related categories</label>
+  <label>Mark related categories</label>
   <% for category in current_user.categories %>
       <div style="padding-left: 10px;">
         <%= check_box_tag "work[category_ids][]", category.id, @work.categories.include?(category) %>

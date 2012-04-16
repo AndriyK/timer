@@ -9,7 +9,7 @@
       <%
 	  144.times do |i|
       %>
-        <td style="background-color: white" class="timeline_minutes" id="<%= i*10%>"></td>
+        <td style="background-color: white;<%= (i+1)%6 == 0 ? "border-right-style: solid;border-right-width: 1px;" : ""%>" class="timeline_minutes" id="<%= i*10%>" data-original-title="<%= get_tooltip_text(i*10) %>"></td>
       <% end %>
     </tr>
   </table>
@@ -17,44 +17,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $(".timeline_minutes").click( function (){
-
-        });
-
-        /*$(".timeline_minutes").hover(
-            // in
-            function (){
-                min = $(this).attr("id");
-                console.log( min );
-
-                if( min >= 60) {
-                    time = (
-                            Math.floor(min/60)<10
-                                ? '0'+Math.floor(min/60)
-                                : Math.floor(min/60)
-                            )
-                            + ':'
-                            + (
-                                min%60 == 0
-                                    ? '00'
-                                    : min%60
-                            );
-                }else{
-                    time = '00:' + (
-                                    min==0
-                                        ? '00'
-                                        : min
-                                    );
-                }
-                console.log( time );
-                //$(this).attr("data-original-title", time);
-                $(this).tooltip({animation:false, placement:'bottom', title: time});
-            },
-            // out
-            function (){
-
-            }
-        );*/
-
+        // show tooltip with time
+        $(".timeline_minutes").tooltip({animation:false, placement:'bottom'});
      });
 </script>
