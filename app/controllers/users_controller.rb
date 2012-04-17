@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authenticate, :only => [:show, :edit, :update]
   before_filter :correct_user, :only => [:show, :edit, :update]
-  before_filter :save_custom_date, :only => [:show]
 
   def new
     @title = "Sign Up"
@@ -9,12 +8,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    @works = @user.works.where( condition ).order("\"from\"")
-    @work = Work.new
     @title = @user.name
-    @current_day = date
   end
-
 
   def create
     @user = User.new(params[:user])
@@ -50,31 +45,6 @@ class UsersController < ApplicationController
       redirect_to(root_path) unless current_user?(@user)
     rescue
       redirect_to root_path
-    end
-
-    def condition
-      day = date
-      '"from" > \'' + day.strftime("%F") + '\' and "from" < \'' +  (day+60*60*24).strftime("%F")  + "'"
-    end
-
-    def date
-      if custom_date?
-         return custom_date
-      end
-      Time.now.utc
-    end
-
-    def custom_date?
-      session['current_date']
-    end
-
-    def custom_date
-      parts = session[:current_date].split("-")
-      Time.utc(parts[0], parts[1], parts[2])
-    end
-
-    def save_custom_date
-      session[:current_date] = params['d'] if params['d']
     end
 
 end
