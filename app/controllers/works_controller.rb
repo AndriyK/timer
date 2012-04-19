@@ -5,7 +5,6 @@ class WorksController < ApplicationController
 
   def show
     @works = current_user.works.where( condition ).order("\"from\"")
-    params[:selected_works] = @works.to_a
     @work = Work.new
     @title = current_user.name
     @current_day = date
