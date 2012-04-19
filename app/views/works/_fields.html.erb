@@ -1,20 +1,58 @@
-<%= render 'shared/error_messages', :object => f.object %>
-<div class="field">
-  <label>Start</label>
-  <%= time_select("work", "from", {:minute_step => 10}) %>
-  &nbsp;&nbsp;
-  <label>Finish</label>
-  <%= time_select("work", "to", {:minute_step => 10}) %>
-</div>
+<%= form_for(@work, :html => { :class => "well form-inline" }) do |f| %>
+    <%= render 'shared/error_messages', :object => f.object %>
 
-<div class="field">
-  <label>Category</label><br>
-  <%= collection_select(:work, :category_ids, @user.categories, :id, :name,
-                        options = {:prompt => ''}, html_options = {:multiple => true, :size => @user.categories.count+1 })%>
-</div>
+    From
+    <input id="work_from_1i" type="hidden" value="<%= @current_day.year %>" name="work[from(1i)]">
+    <input id="work_from_2i" type="hidden" value="<%= @current_day.month %>" name="work[from(2i)]">
+    <input id="work_from_3i" type="hidden" value="<%= @current_day.day %>" name="work[from(3i)]">
+    <%= time_select("work", "from", {:minute_step => 10, :ignore_date=>true}, {:class=>"span1 time"}) %>
 
-<div class="field">
-  <%= f.label :description %><br />
-  <%= f.text_area :description, :size=>"43x4" %>
-</div>
+    &nbsp;&nbsp;To
+    <input id="work_to_1i" type="hidden" value="<%= @current_day.year %>" name="work[to(1i)]">
+    <input id="work_to_2i" type="hidden" value="<%= @current_day.month %>" name="work[to(2i)]">
+    <input id="work_to_3i" type="hidden" value="<%= @current_day.day %>" name="work[to(3i)]">
+    <%= time_select("work", "to", {:minute_step => 10, :ignore_date=>true}, {:class=>"span1 time"}) %>
 
+    <%= collection_select(:work, :category_ids, current_user.categories, :id, :name, options = {:prompt => '--Category--'}, html_options = {:multiple => false, :size => 1, :class=>"span2"})%>
+
+    <%= f.text_field :description, {:class =>"input-large",:placeholder=>"Activity description"} %>
+
+    <%= f.submit "Add activity", :class=>"btn btn-primary", :id => "work_submit" %>
+
+<% end %>
+
+
+<script language="JavaScript" >
+  $(document).ready( function() {
+    $("#work_submit").click( function (){
+        // make validation before adding new activity
+        from_h = $("#work_from_4i").val();
+        from_m = $("#work_from_5i").val();
+        to_h = $("#work_to_4i").val();
+        to_m = $("#work_to_5i").val();
+
+        // 1 case - from and start should not be equal
+        if( from_h == to_h && from_m == to_m ) {
+            alert('Start and finish times can not be equal. Please set correct interval.');
+            return false;
+        }
+
+        // 2 case - from value less than to value
+        /*if( (parseInt(from_h)*60 + parseInt(from_m)) < (parseInt(to_h)*60 + parseInt(to_m)) ) {
+            alert('End time should be greater than start time. Please set correct interval.');
+            return false;
+        }*/
+
+        // 3 case - time interval should not intersect
+        from_id = $('#'+(parseInt(from_h)*60 + parseInt(from_m))+'[style*="green;"]').attr("id");
+        to_id = $('#'+(parseInt(to_h)*60 + parseInt(to_m) - 10)+'[style*="green;"]').attr("id");
+        if( from_id || to_id) {
+            alert('Time intervals should not intersect with already added. Please set correct interval.');
+            return false;
+        }
+
+
+        return true;
+    });
+  });
+</script>
