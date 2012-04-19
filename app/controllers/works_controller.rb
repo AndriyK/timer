@@ -4,7 +4,8 @@ class WorksController < ApplicationController
   before_filter :save_custom_date, :only => [:show]
 
   def show
-    @works = current_user.works.where( condition ).order("\"from\"")
+    #@works = current_user.works.where( condition ).order("\"from\"")
+    @works = current_user.works
     @work = Work.new
     @title = current_user.name
     @current_day = date
