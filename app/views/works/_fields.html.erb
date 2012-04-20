@@ -30,6 +30,8 @@
         from_m = $("#work_from_5i").val();
         to_h = $("#work_to_4i").val();
         to_m = $("#work_to_5i").val();
+        from_id = parseInt(from_h)*60 + parseInt(from_m);
+        to_id = parseInt(to_h)*60 + parseInt(to_m);
 
         // 1 case - from and start should not be equal
         if( from_h == to_h && from_m == to_m ) {
@@ -38,21 +40,25 @@
         }
 
         // 2 case - from value less than to value
-        /*if( (parseInt(from_h)*60 + parseInt(from_m)) < (parseInt(to_h)*60 + parseInt(to_m)) ) {
+        if( from_id > to_id ) {
             alert('End time should be greater than start time. Please set correct interval.');
             return false;
-        }*/
+        }
 
         // 3 case - time interval should not intersect
-        from_id = $('#'+(parseInt(from_h)*60 + parseInt(from_m))+'[style*="green;"]').attr("id");
-        to_id = $('#'+(parseInt(to_h)*60 + parseInt(to_m) - 10)+'[style*="green;"]').attr("id");
+        from_id = $('#'+from_id+'[style*="green;"]').attr("id");
+        to_id = $('#'+(to_id - 10)+'[style*="green;"]').attr("id");
         if( from_id || to_id) {
             alert('Time intervals should not intersect with already added. Please set correct interval.');
             return false;
         }
 
-
         return true;
     });
   });
+
+  function showErrorMassage( msg ){
+      $("form#new_work").before("<div class=\"alert alert-error\">"+msg+"</div>");
+      //console.log($("form#new_work"));
+  }
 </script>
