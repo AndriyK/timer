@@ -5,7 +5,7 @@ class WorksController < ApplicationController
 
   def show
     #@works = current_user.works.where( condition ).order("\"from\"")
-    @works = current_user.works.where( :from => date .. (date + 1.day) )
+    @works = current_user.works.where( :from => date .. (date + 1.day) ).order('"from"')
 
     #where(:created_at => (Time.now.midnight - 1.day)..Time.now.midnight)
 
