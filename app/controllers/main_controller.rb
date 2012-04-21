@@ -17,7 +17,8 @@ class MainController < ApplicationController
 
   private
 
-  def redirect_user
-    redirect_to user_path(current_user) if signed_in?
-  end
+    def redirect_user
+      redirect_to work_path(current_user) if signed_in?
+    end
+
 end

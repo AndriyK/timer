@@ -2,13 +2,9 @@ class WorksController < ApplicationController
   before_filter :authenticate
   before_filter :authorized_user, :only => [:edit, :update, :destroy]
   before_filter :save_custom_date, :only => [:show]
+  before_filter :user_works, :only => [:show, :edit]
 
   def show
-    #@works = current_user.works.where( condition ).order("\"from\"")
-    @works = current_user.works.where( :from => date .. (date + 1.day) ).order('"from"')
-
-    #where(:created_at => (Time.now.midnight - 1.day)..Time.now.midnight)
-
     @work = Work.new
     @title = current_user.name
     @current_day = date
@@ -25,7 +21,6 @@ class WorksController < ApplicationController
   end
 
   def edit
-    @works = current_user.works.where( "id <> " + @work.id.to_s + " and " + condition ).order("\"from\"")
   end
 
   def update
@@ -46,6 +41,10 @@ class WorksController < ApplicationController
 
 
   private
+
+    def user_works
+      @works = current_user.works.where( :from => date .. (date + 1.day) ).order('"from"')
+    end
 
     def authorized_user
       @work = current_user.works.find_by_id(params[:id])

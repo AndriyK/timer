@@ -1,34 +1,37 @@
-<tr class="activity">
-  <td class="activity_start" name="<%= get_name_for_timeline work.from%>"><%= get_time_part work.from  %> </td>
-  <td class="activity_end" name="<%= get_name_for_timeline work.to%>"><%= get_time_part work.to  %> </td>
-  <td><%= humanize_duration work.duration %></td>
-  <td class="activity_description"><%= work.description %> </td>
-  <td>
-    <% for category in work.categories %>
-        <span class="label"><%= category.name %></span>
-    <% end  %>
-  </td>
-  <td><%= link_to "edit", edit_work_path(work), :class=>"btn btn-mini" %></td>
-  <td><%= link_to "delete", work, :method => :delete, :confirm => "You sure?", :title => work.description, :class=>"btn btn-mini btn-danger" %></td>
-  <td>
-    <div class="btn-group">
-      <button class="btn btn-info btn-mini dropdown-toggle" data-toggle="dropdown">
-        Actions
-        <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" style="min-width: 100px;">
-        <li>
-          <%= link_to "Add source", source_path(current_user, :work_id => work), :class => "btn-mini" %>
-        </li>
-        <li>
-          <%= link_to "Create routine", '#', :class => "btn-mini"  %>
-        </li>
-      </ul>
-    </div>
-
-  </td>
-</tr>
-
+<%
+   # exclude edited work from whole works list on work edit page
+   unless work == @work
+%>
+    <tr class="activity">
+      <td class="activity_start" name="<%= get_name_for_timeline work.from%>"><%= get_time_part work.from  %> </td>
+      <td class="activity_end" name="<%= get_name_for_timeline work.to%>"><%= get_time_part work.to  %> </td>
+      <td><%= humanize_duration work.duration %></td>
+      <td class="activity_description"><%= work.description %> </td>
+      <td>
+        <% for category in work.categories %>
+            <span class="label"><%= category.name %></span>
+        <% end  %>
+      </td>
+      <td><%= link_to "edit", edit_work_path(work), :class=>"btn btn-mini" %></td>
+      <td><%= link_to "delete", work, :method => :delete, :confirm => "You sure?", :title => work.description, :class=>"btn btn-mini btn-danger" %></td>
+      <td>
+        <div class="btn-group">
+          <button class="btn btn-info btn-mini dropdown-toggle" data-toggle="dropdown">
+            Actions
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" style="min-width: 100px;">
+            <li>
+              <%= link_to "Add source", source_path(current_user, :work_id => work), :class => "btn-mini" %>
+            </li>
+            <li>
+              <%= link_to "Create routine", '#', :class => "btn-mini"  %>
+            </li>
+          </ul>
+        </div>
+      </td>
+    </tr>
+<% end %>
 
 <script type="text/javascript">
     $(document).ready( buildTimeline() );
