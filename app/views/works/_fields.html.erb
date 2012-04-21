@@ -35,13 +35,13 @@
 
         // 1 case - from and start should not be equal
         if( from_h == to_h && from_m == to_m ) {
-            alert('Start and finish times can not be equal. Please set correct interval.');
+            showErrorMassage('Start and finish times can not be equal. Please set correct interval.');
             return false;
         }
 
         // 2 case - from value less than to value
         if( from_id > to_id ) {
-            alert('End time should be greater than start time. Please set correct interval.');
+            showErrorMassage('End time should be greater than start time. Please set correct interval.');
             return false;
         }
 
@@ -49,7 +49,7 @@
         from_id = $('#'+from_id+'[style*="green;"]').attr("id");
         to_id = $('#'+(to_id - 10)+'[style*="green;"]').attr("id");
         if( from_id || to_id) {
-            alert('Time intervals should not intersect with already added. Please set correct interval.');
+            showErrorMassage('Time intervals should not intersect with already added. Please set correct interval.');
             return false;
         }
 
@@ -58,7 +58,8 @@
   });
 
   function showErrorMassage( msg ){
-      $("form#new_work").before("<div class=\"alert alert-error\">"+msg+"</div>");
+      //$("form#new_work").before("<div class=\"alert alert-error\">"+msg+"</div>");
+      alert( msg );
       //console.log($("form#new_work"));
   }
 </script>
