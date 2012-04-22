@@ -1,0 +1,31 @@
+<div class="current_date">
+  <%= link_to "<<", work_path(current_user, :d=>day_before(@current_day)), :class=>"btn btn-mini " %>
+  <%= @current_day.strftime("%A, %d %b %Y") %>
+  <% if  @current_day.strftime("%d %b %Y") != Time.now.strftime("%d %b %Y")%>
+      <%= link_to ">>", work_path(current_user, :d=>day_after(@current_day)), :class=>"btn btn-mini " %>
+  <% end %>
+
+
+  <div style="float:left;margin-right: 5px;">
+    <form method="get" action="<%= work_path(current_user) %>" class="form-inline" id="datepicker_form">
+        <input type="hidden" name="d" id="datepicker" />
+    </form>
+  </div>
+</div>
+
+<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/redmond/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+
+<script language="JavaScript">
+    $("#datepicker").datepicker({
+        buttonImage: '../images/calendar.gif',
+        buttonImageOnly: true,
+        showOn: 'button',
+        dateFormat: "yy-mm-dd",
+        maxDate: +0,
+        onSelect: function(dateText, inst) {
+                    $("#datepicker_form").submit();
+                }
+    });
+</script>
+
