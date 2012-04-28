@@ -6,7 +6,7 @@ Timer::Application.routes.draw do
   resources :categories
   resources :tags
   resources :sources
-
+  resources :routines
 
   match "main/home" => "main#home"
   match "main/about" => "main#about"
