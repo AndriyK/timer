@@ -1,0 +1,14 @@
+<tr>
+  <td><%= routine.from%></td>
+  <td><%= routine.to%></td>
+  <td><%= routine.description%></td>
+  <td>
+    <% for category in routine.categories %>
+        <span class="label"><%= category.name %></span>
+    <% end %>
+  </td>
+  <td><%= humanize_days routine.days%></td>
+  <td><%= humanize_weeks routine.weeks%></td>
+  <td><%= routine.dates%></td>
+</tr>
+

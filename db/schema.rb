@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120318170208) do
+ActiveRecord::Schema.define(:version => 20120505170827) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -23,6 +23,15 @@ ActiveRecord::Schema.define(:version => 20120318170208) do
 
   add_index "categories", ["user_id"], :name => "index_categories_on_user_id"
 
+  create_table "categories_routines", :id => false, :force => true do |t|
+    t.integer "routine_id"
+    t.integer "category_id"
+  end
+
+  add_index "categories_routines", ["category_id"], :name => "index_categories_routines_on_category_id"
+  add_index "categories_routines", ["routine_id", "category_id"], :name => "index_categories_routines_on_routine_id_and_category_id", :unique => true
+  add_index "categories_routines", ["routine_id"], :name => "index_categories_routines_on_routine_id"
+
   create_table "categories_works", :id => false, :force => true do |t|
     t.integer "work_id"
     t.integer "category_id"
@@ -31,6 +40,20 @@ ActiveRecord::Schema.define(:version => 20120318170208) do
   add_index "categories_works", ["category_id"], :name => "index_categories_works_on_category_id"
   add_index "categories_works", ["work_id", "category_id"], :name => "index_categories_works_on_work_id_and_category_id", :unique => true
   add_index "categories_works", ["work_id"], :name => "index_categories_works_on_work_id"
+
+  create_table "routines", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "from"
+    t.string   "to"
+    t.string   "description"
+    t.string   "days"
+    t.string   "weeks"
+    t.string   "dates"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "routines", ["user_id"], :name => "index_routines_on_user_id"
 
   create_table "sources", :force => true do |t|
     t.integer  "user_id"

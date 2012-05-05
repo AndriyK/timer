@@ -14,6 +14,7 @@
 
 class Work < ActiveRecord::Base
   attr_accessible :from, :to, :duration, :description, :category_ids
+
   belongs_to :user
   has_and_belongs_to_many :categories
 

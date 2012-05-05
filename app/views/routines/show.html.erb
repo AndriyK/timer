@@ -1,2 +1,31 @@
-<h1>Routines#show</h1>
-<p>Find me in app/views/routines/show.html.erb</p>
+<h1>Your current routines</h1>
+
+<% unless @routines.empty? %>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th width="5%">From</th>
+        <th width="5%">To</th>
+        <th width="25%">Description</th>
+        <th width="10%">Category</th>
+        <th width="5%">Days</th>
+        <th width="5%">Weeks</th>
+        <th width="5%">Dates</th>
+      </tr>
+      </thead>
+      <%= render @routines %>
+    </table>
+<% else %>
+    <div class="alert alert-info">
+        Routines was not added yet.
+    </div>
+<% end %>
+
+<% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+<% end %>
+
+<%= render 'fields' %>
+
+
+
