@@ -1,2 +1,131 @@
-<h1>Routines#edit</h1>
-<p>Find me in app/views/routines/edit.html.erb</p>
+<%= form_for(@routine, :html => { :class => "well form-inline" }) do |f| %>
+
+    <fieldset>
+
+      <legend>Please edit routine</legend>
+
+      <%= render 'shared/error_messages', :object => f.object %>
+
+      <div style="display: inline-block;float:left;margin-right: 20px;">
+        <label class="control-label">From</label>
+        <div class="controls">
+          <select class="span1 time" name="routine[from_hour]">
+            <% 24.times do |value|
+              value =  value<10 ? "0"+value.to_s : value.to_s
+            %>
+                <option <%="selected" if get_time_hour(@routine.from) == value%> value="<%=value%>"><%=value%></option>
+            <% end %>
+          </select>
+          :
+          <select class="span1 time" name="routine[from_min]">
+            <% ["00", "10", "20", "30", "40", "50"].each do |min| %>
+                <option <%="selected" if get_time_min(@routine.from) == min%> value="<%= min %>"><%= min %></option>
+            <% end %>
+          </select>
+        </div>
+      </div>
+
+
+      <div>
+        <label class="control-label">To</label>
+        <div class="controls">
+          <select class="span1 time" name="routine[to_hour]">
+            <% 24.times do |value|
+              value =  value<10 ? "0"+value.to_s : value.to_s
+            %>
+                <option <%="selected" if get_time_hour(@routine.to) == value%> value="<%=value%>"><%=value%></option>
+            <% end %>
+          </select>
+          :
+          <select class="span1 time" name="routine[to_min]">
+            <% ["00", "10", "20", "30", "40", "50"].each do |min| %>
+                <option <%="selected" if get_time_min(@routine.to) == min%> value="<%= min %>"><%= min %></option>
+            <% end %>
+          </select>
+        </div>
+      </div>
+
+      <br>
+      <label>Description</label><br>
+      <%= f.text_field :description, {:class =>"input-large",:placeholder=>"Routine description"} %>
+
+      <br><br>
+      <label>Related category(-ies)</label><br>
+      <%= collection_select(:routine, :category_ids, current_user.categories.order("name"), :id, :name, options = {:_prompt => '--Category--'}, html_options = {:multiple => true, :size => 5, :class=>"span2"})%>
+
+
+      <div class="controls" style="margin-top:10px;">
+        <label class="checkbox inline" >Days: </label>
+
+        <label class="checkbox inline">
+          <input type="checkbox" name="routine[days][]" value="1" <%="checked" if @routine.days && @routine.days.include?("1")%>>
+          Mon
+        </label>
+        <label class="checkbox inline">
+          <input type="checkbox" name="routine[days][]" value="2" <%= "checked" if @routine.days && @routine.days.include?("2")%>>
+          Tue
+        </label>
+        <label class="checkbox inline">
+          <input type="checkbox" name="routine[days][]" value="3" <%= "checked" if @routine.days && @routine.days.include?("3")%>>
+          Wed
+        </label>
+        <label class="checkbox inline">
+          <input type="checkbox" name="routine[days][]" value="4" <%= "checked" if @routine.days && @routine.days.include?("4")%>>
+          Thu
+        </label>
+        <label class="checkbox inline">
+          <input type="checkbox" name="routine[days][]" value="5" <%= "checked" if @routine.days && @routine.days.include?("5")%>>
+          Fri
+        </label>
+        <label class="checkbox inline">
+          <input type="checkbox" name="routine[days][]" value="6" <%= "checked" if @routine.days && @routine.days.include?("6")%>>
+          Sat
+        </label>
+        <label class="checkbox inline">
+          <input type="checkbox" name="routine[days][]" value="7" <%= "checked" if @routine.days && @routine.days.include?("7")%>>
+          Sun
+        </label>
+        <label class="checkbox inline">
+          <input id="checkbox_all_days" type="checkbox" <%= "checked" if @routine.days == ("1,2,3,4,5,6,7")%>>
+          All days
+        </label>
+      </div>
+
+      <div class="controls" style="margin-top:10px;">
+        <label class="checkbox inline" >Weeks: </label>
+
+        <label class="checkbox inline">
+          <input name="routine[weeks][]" type="checkbox" value="1" <%="checked" if @routine.weeks && @routine.weeks.include?("1")%>>
+          1
+        </label>
+        <label class="checkbox inline">
+          <input name="routine[weeks][]" type="checkbox" value="2" <%="checked" if @routine.weeks && @routine.weeks.include?("2")%>>
+          2
+        </label>
+        <label class="checkbox inline">
+          <input name="routine[weeks][]" type="checkbox" value="3" <%="checked" if @routine.weeks && @routine.weeks.include?("3")%>>
+          3
+        </label>
+        <label class="checkbox inline">
+          <input name="routine[weeks][]" type="checkbox" value="4" <%="checked" if @routine.weeks && @routine.weeks.include?("4")%>>
+          4
+        </label>
+        <label class="checkbox inline">
+          <input id="checkbox_all_weeks" type="checkbox" <%= "checked" if @routine.weeks == ("1,2,3,4")%>>
+          All weeks
+        </label>
+      </div>
+
+      <br>
+      <label>Dates</label><br>
+      <%= f.text_field :dates, {:class =>"input-large",:placeholder=>"Dates range"} %>
+      <span class="help-block">Comma separated dates, ex. 1,2,3 or 12-15</span>
+
+      <br>
+      <%= f.submit "Update routine", :class=>"btn btn-primary", :id => "routine_submit" %>
+
+    </fieldset>
+
+<% end %>
+
+<%= render 'all_checkbox_js' %>

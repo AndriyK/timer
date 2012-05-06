@@ -1,0 +1,20 @@
+
+<script language="JavaScript" >
+
+    $(document).ready( function (){
+        $('#checkbox_all_days').change(
+                function (){
+                    $("input[name='routine[days][]']").attr('checked', this.checked);
+                }
+        )
+
+        $('#checkbox_all_weeks').change(
+                function (){
+                    $("input[name='routine[weeks][]']").attr('checked', this.checked);
+                }
+        )
+
+    });
+
+
+</script>

@@ -4,11 +4,13 @@
   <td><%= routine.description%></td>
   <td>
     <% for category in routine.categories %>
-        <span class="label"><%= category.name %></span>
+        <span class="label" style="margin: 2px;"><%= category.name %></span>
     <% end %>
   </td>
   <td><%= humanize_days routine.days%></td>
   <td><%= humanize_weeks routine.weeks%></td>
   <td><%= routine.dates%></td>
+  <td><%= link_to "edit", edit_routine_path(routine), :class=>"btn btn-mini" %></td>
+  <td><%= link_to "delete", routine, :method => :delete, :confirm => "You sure?", :title => routine.description, :class=>"btn btn-mini btn-danger" %></td>
 </tr>
 

@@ -2,8 +2,8 @@ class RoutinesController < ApplicationController
 
   before_filter :authenticate
   before_filter :authorized_user, :only => [:edit, :update, :destroy]
-  before_filter :prepare_time_interval, :only =>[:create]
-  before_filter :prepare_routine_days, :only =>[:create]
+  before_filter :prepare_time_interval, :only =>[:create, :update]
+  before_filter :prepare_routine_days, :only =>[:create, :update]
 
   def new
   end
@@ -12,6 +12,14 @@ class RoutinesController < ApplicationController
   end
 
   def update
+    params[:routine][:category_ids] ||= []
+    if @routine.update_attributes(params[:routine])
+      flash[:success] = "Routine updated."
+      redirect_to routine_path(current_user)
+    else
+      @title = "Edit routine"
+      render 'edit'
+    end
   end
 
   def create
@@ -28,6 +36,11 @@ class RoutinesController < ApplicationController
   def show
     @routines = current_user.routines
     @routine = Routine.new
+  end
+
+  def destroy
+    @routine.destroy
+    redirect_to routine_path(current_user)
   end
 
 
