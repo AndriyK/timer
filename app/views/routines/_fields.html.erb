@@ -6,88 +6,11 @@
 
       <%= render 'shared/error_messages', :object => f.object %>
 
-      <div style="display: inline-block;float:left;margin-right: 20px;">
-        <label class="control-label">From</label>
-        <div class="controls">
-          <select class="span1 time" name="routine[from_hour]">
-            <option value="00" selected="selected">00</option>
-            <option value="01">01</option>
-            <option value="02">02</option>
-            <option value="03">03</option>
-            <option value="04">04</option>
-            <option value="05">05</option>
-            <option value="06">06</option>
-            <option value="07">07</option>
-            <option value="08">08</option>
-            <option value="09">09</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-            <option value="15">15</option>
-            <option value="16">16</option>
-            <option value="17">17</option>
-            <option value="18">18</option>
-            <option value="19">19</option>
-            <option value="20">20</option>
-            <option value="21">21</option>
-            <option value="22">22</option>
-            <option value="23">23</option>
-          </select>
-          :
-          <select class="span1 time" name="routine[from_min]">
-            <option value="00">00</option>
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="30">30</option>
-            <option value="40">40</option>
-            <option value="50">50</option>
-          </select>
-        </div>
-      </div>
+      <%= render :partial=>'edit_time_select', :locals => {:time_label => "From", :time_value => "00:00"} %>
 
+      <%= render :partial=>'edit_time_select', :locals => {:time_label => "To", :time_value => "00:00"} %>
 
-      <div>
-        <label class="control-label">To</label>
-        <div class="controls">
-          <select class="span1 time" name="routine[to_hour]">
-            <option value="00" selected="selected">00</option>
-            <option value="01">01</option>
-            <option value="02">02</option>
-            <option value="03">03</option>
-            <option value="04">04</option>
-            <option value="05">05</option>
-            <option value="06">06</option>
-            <option value="07">07</option>
-            <option value="08">08</option>
-            <option value="09">09</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-            <option value="15">15</option>
-            <option value="16">16</option>
-            <option value="17">17</option>
-            <option value="18">18</option>
-            <option value="19">19</option>
-            <option value="20">20</option>
-            <option value="21">21</option>
-            <option value="22">22</option>
-            <option value="23">23</option>
-          </select>
-          :
-          <select class="span1 time" name="routine[to_min]">
-            <option value="00">00</option>
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="30">30</option>
-            <option value="40">40</option>
-            <option value="50">50</option>
-          </select>
-        </div>
-      </div>
+      <div style="clear: both;"></div>
 
       <br>
       <label>Description</label><br>
@@ -101,64 +24,36 @@
       <div class="controls" style="margin-top:10px;">
         <label class="checkbox inline" >Days: </label>
 
-        <label class="checkbox inline">
-          <input type="checkbox" name="routine[days][]" value="1">
-          Mon
-        </label>
-        <label class="checkbox inline">
-          <input type="checkbox" name="routine[days][]" value="2">
-          Tue
-        </label>
-        <label class="checkbox inline">
-          <input type="checkbox" name="routine[days][]" value="3">
-          Wed
-        </label>
-        <label class="checkbox inline">
-          <input type="checkbox" name="routine[days][]" value="4">
-          Thu
-        </label>
-        <label class="checkbox inline">
-          <input type="checkbox" name="routine[days][]" value="5">
-          Fri
-        </label>
-        <label class="checkbox inline">
-          <input type="checkbox" name="routine[days][]" value="6">
-          Sat
-        </label>
-        <label class="checkbox inline">
-          <input type="checkbox" name="routine[days][]" value="7">
-          Sun
-        </label>
+        <% { 1=>"Mon", 2=>"Tue", 3=>"Wed", 4=>"Thu", 5=>"Fri", 6=>"Sat", 7=>"Sun"}.each do |key, value| %>
+            <label class="checkbox inline">
+              <input type="checkbox" name="routine[days][]" value="<%= key %>">
+              <%= value %>
+            </label>
+        <% end %>
+
         <label class="checkbox inline">
           <input id="checkbox_all_days" type="checkbox" >
           All days
         </label>
       </div>
 
+
       <div class="controls" style="margin-top:10px;">
         <label class="checkbox inline" >Weeks: </label>
 
-        <label class="checkbox inline">
-          <input name="routine[weeks][]" type="checkbox" value="1">
-          1
-        </label>
-        <label class="checkbox inline">
-          <input name="routine[weeks][]" type="checkbox" value="2">
-          2
-        </label>
-        <label class="checkbox inline">
-          <input name="routine[weeks][]" type="checkbox" value="3">
-          3
-        </label>
-        <label class="checkbox inline">
-          <input name="routine[weeks][]" type="checkbox" value="4">
-          4
-        </label>
+        <% [1, 2, 3, 4].each do |value| %>
+            <label class="checkbox inline">
+              <input name="routine[weeks][]" type="checkbox" value="<%= value %>">
+              <%= value %>
+            </label>
+        <% end %>
+
         <label class="checkbox inline">
           <input id="checkbox_all_weeks" type="checkbox">
           All weeks
         </label>
       </div>
+
 
       <br>
       <label>Dates</label><br>

@@ -1,0 +1,18 @@
+<div style="display: inline-block;float:left;margin-right: 20px;">
+  <label class="control-label"><%= time_label %></label>
+  <div class="controls">
+    <select class="span1 time" name="routine[from_hour]">
+      <% 24.times do |value|
+        value =  value<10 ? "0"+value.to_s : value.to_s
+      %>
+          <option <%="selected" if get_time_hour(time_value) == value%> value="<%=value%>"><%=value%></option>
+      <% end %>
+    </select>
+    :
+    <select class="span1 time" name="routine[from_min]">
+      <% ["00", "10", "20", "30", "40", "50"].each do |min| %>
+          <option <%="selected" if get_time_min(time_value) == min%> value="<%= min %>"><%= min %></option>
+      <% end %>
+    </select>
+  </div>
+</div>
