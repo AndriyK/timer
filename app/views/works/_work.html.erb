@@ -25,7 +25,7 @@
               <%= link_to "Add source", source_path(current_user, :work_id => work), :class => "btn-mini" %>
             </li>
             <li>
-              <%= link_to "Create routine", '#', :class => "btn-mini"  %>
+              <%= link_to "Create routine", new_routine_path(:work_id=>work), :class => "btn-mini"  %>
             </li>
           </ul>
         </div>

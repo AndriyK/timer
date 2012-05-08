@@ -6,6 +6,12 @@ class RoutinesController < ApplicationController
   before_filter :prepare_routine_days, :only =>[:create, :update]
 
   def new
+    if params[:work_id] && (work = current_user.works.find_by_id(params[:work_id]) ) then
+      @routine = create_routine_from_work work
+      render '_fields'
+    else
+      redirect_to root_path
+    end
   end
 
   def edit
@@ -59,6 +65,15 @@ class RoutinesController < ApplicationController
     def prepare_routine_days
       params[:routine][:days] = params[:routine][:days].join(',') if params[:routine][:days]
       params[:routine][:weeks] = params[:routine][:weeks].join(',') if params[:routine][:weeks]
+    end
+
+    def create_routine_from_work work
+      new_routine = Hash.new
+      new_routine[:description] =  work.description
+      new_routine[:category_ids] = work.category_ids
+      new_routine[:from] = "12:00"
+      new_routine[:to] = "14:00"
+      current_user.routines.build( new_routine )
     end
 
 end

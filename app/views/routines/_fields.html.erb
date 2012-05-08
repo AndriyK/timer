@@ -6,9 +6,9 @@
 
       <%= render 'shared/error_messages', :object => f.object %>
 
-      <%= render :partial=>'edit_time_select', :locals => {:time_label => "From", :time_value => "00:00"} %>
+      <%= render :partial=>'edit_time_select', :locals => {:time_label => "From", :time_value =>  @routine.from || "00:00"} %>
 
-      <%= render :partial=>'edit_time_select', :locals => {:time_label => "To", :time_value => "00:00"} %>
+      <%= render :partial=>'edit_time_select', :locals => {:time_label => "To", :time_value =>  @routine.to || "00:00"} %>
 
       <div style="clear: both;"></div>
 
