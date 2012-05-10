@@ -6,8 +6,8 @@ class RoutinesController < ApplicationController
   before_filter :prepare_routine_days, :only =>[:create, :update]
 
   def new
-    if params[:work_id] && (work = current_user.works.find_by_id(params[:work_id]) ) then
-      @routine = create_routine_from_work work
+    if params[:work_id] && (work = current_user.works.find_by_id(params[:work_id]) )
+      @routine = create_routine_from_work(work)
       render '_fields'
     else
       redirect_to root_path
@@ -71,9 +71,13 @@ class RoutinesController < ApplicationController
       new_routine = Hash.new
       new_routine[:description] =  work.description
       new_routine[:category_ids] = work.category_ids
-      new_routine[:from] = "12:00"
-      new_routine[:to] = "14:00"
+      new_routine[:from] = get_time_only(work.from)
+      new_routine[:to] = get_time_only(work.to)
       current_user.routines.build( new_routine )
+    end
+
+    def get_time_only time
+      time.strftime("%H") + ":" + time.strftime("%M")
     end
 
 end

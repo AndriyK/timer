@@ -1,7 +1,7 @@
 <div style="display: inline-block;float:left;margin-right: 20px;">
-  <label class="control-label"><%= time_label %></label>
+  <label class="control-label" style="text-transform: capitalize;"><%= time_label %></label>
   <div class="controls">
-    <select class="span1 time" name="routine[from_hour]">
+    <select class="span1 time" name="routine[<%= time_label %>_hour]">
       <% 24.times do |value|
         value =  value<10 ? "0"+value.to_s : value.to_s
       %>
@@ -9,7 +9,7 @@
       <% end %>
     </select>
     :
-    <select class="span1 time" name="routine[from_min]">
+    <select class="span1 time" style="text-transform: capitalize;" name="routine[<%= time_label %>_min]">
       <% ["00", "10", "20", "30", "40", "50"].each do |min| %>
           <option <%="selected" if get_time_min(time_value) == min%> value="<%= min %>"><%= min %></option>
       <% end %>
