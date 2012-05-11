@@ -8,6 +8,7 @@ class WorksController < ApplicationController
     @work = Work.new
     @title = current_user.name
     @current_day = date
+    @routines = current_user.routines
   end
 
   def create
@@ -49,11 +50,6 @@ class WorksController < ApplicationController
     def authorized_user
       @work = current_user.works.find_by_id(params[:id])
       redirect_to root_path if @work.nil?
-    end
-
-    def condition
-      day = date
-      '"from" > \'' + day.strftime("%F") + '\' and "from" < \'' +  (day+60*60*24).strftime("%F")  + "'"
     end
 
     def date

@@ -1,0 +1,13 @@
+<% @routines.each do |routine| %>
+  <tr>
+    <td><%= routine.from%></td>
+    <td><%= routine.to%></td>
+    <td><%= routine.description%></td>
+    <td>
+      <% for category in routine.categories %>
+          <span class="label" style="margin: 2px;"><%= category.name %></span>
+      <% end %>
+    </td>
+    <td><%= link_to "Create activity", new_work_path(:r_id => routine.id), :class=>"btn btn-mini" %></td>
+  </tr>
+<% end %>
