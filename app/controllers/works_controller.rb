@@ -11,6 +11,16 @@ class WorksController < ApplicationController
     @routines = current_user.routines
   end
 
+  def new
+    @current_day = date
+    if params[:r_id] && (routine = current_user.routines.find_by_id(params[:r_id]) )
+      @work = create_work_from_routine(routine)
+      render '_fields'
+    else
+      redirect_to root_path
+    end
+  end
+
   def create
     @work  = current_user.works.build(params[:work])
     if @work.save
@@ -70,6 +80,26 @@ class WorksController < ApplicationController
 
     def save_custom_date
       session[:current_date] = params['d'] if params['d']
+    end
+
+    def create_work_from_routine routine
+      new_work = Hash.new
+      cur_date = date
+      new_work[:from] = Time.utc(cur_date.year, cur_date.month, cur_date.day, get_hour_from_time(routine.from), get_minute_from_time(routine.from))
+      new_work[:to] = Time.utc(cur_date.year, cur_date.month, cur_date.day, get_hour_from_time(routine.to), get_minute_from_time(routine.to))
+      new_work[:description] =  routine.description
+      new_work[:category_ids] = routine.category_ids
+      current_user.works.build( new_work )
+    end
+
+    def get_hour_from_time time
+       parts = time.split(":")
+       parts[0].to_i if parts[0]
+    end
+
+    def get_minute_from_time time
+      parts = time.split(":")
+      parts[1].to_i if parts[1]
     end
 
 end
