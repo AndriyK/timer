@@ -1,15 +1,15 @@
 <%=
-#    render 'timeline'
+    render 'timeline'
 %>
 
 <%=
-#    render 'works'
+    render 'works'
 %>
 
 <%= form_for(@work, :html => { :class => "well"}) do |f| %>
     <fieldset>
 
-      <legend>Please update activity information</legend>
+      <legend>Data for new activity</legend>
 
       <%= render 'fields_edit', :f => f %>
 

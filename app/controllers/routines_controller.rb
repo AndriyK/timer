@@ -68,11 +68,12 @@ class RoutinesController < ApplicationController
     end
 
     def create_routine_from_work work
-      new_routine = Hash.new
-      new_routine[:description] =  work.description
-      new_routine[:category_ids] = work.category_ids
-      new_routine[:from] = get_time_only(work.from)
-      new_routine[:to] = get_time_only(work.to)
+      new_routine = {
+        :description =>  work.description,
+        :category_ids => work.category_ids,
+        :from => get_time_only(work.from),
+        :to => get_time_only(work.to)
+      }
       current_user.routines.build( new_routine )
     end
 

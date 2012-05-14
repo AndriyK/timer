@@ -2,20 +2,19 @@ class WorksController < ApplicationController
   before_filter :authenticate
   before_filter :authorized_user, :only => [:edit, :update, :destroy]
   before_filter :save_custom_date, :only => [:show]
-  before_filter :user_works, :only => [:show, :edit]
+  before_filter :user_works, :only => [:show, :edit, :new]
 
   def show
     @work = Work.new
     @title = current_user.name
     @current_day = date
-    @routines = current_user.routines
+    @routines = get_suitable_routines
   end
 
   def new
     @current_day = date
     if params[:r_id] && (routine = current_user.routines.find_by_id(params[:r_id]) )
       @work = create_work_from_routine(routine)
-      render '_fields'
     else
       redirect_to root_path
     end
@@ -83,12 +82,13 @@ class WorksController < ApplicationController
     end
 
     def create_work_from_routine routine
-      new_work = Hash.new
       cur_date = date
-      new_work[:from] = Time.utc(cur_date.year, cur_date.month, cur_date.day, get_hour_from_time(routine.from), get_minute_from_time(routine.from))
-      new_work[:to] = Time.utc(cur_date.year, cur_date.month, cur_date.day, get_hour_from_time(routine.to), get_minute_from_time(routine.to))
-      new_work[:description] =  routine.description
-      new_work[:category_ids] = routine.category_ids
+      new_work = {
+        :from => Time.utc(cur_date.year, cur_date.month, cur_date.day, get_hour_from_time(routine.from), get_minute_from_time(routine.from)),
+        :to => Time.utc(cur_date.year, cur_date.month, cur_date.day, get_hour_from_time(routine.to), get_minute_from_time(routine.to)),
+        :description => routine.description,
+        :category_ids => routine.category_ids
+      }
       current_user.works.build( new_work )
     end
 
@@ -102,4 +102,11 @@ class WorksController < ApplicationController
       parts[1].to_i if parts[1]
     end
 
+    def get_suitable_routines
+      cur_date = date
+      params[:week_day] = cur_date.strftime("%u").to_i
+      params[:week] = cur_date.day%7 == 0 ? cur_date.day/7 : (cur_date.day/7 + 1)
+      params[:date] = cur_date.day
+      current_user.routines.where("days like '%?%' OR weeks like '%?%'", cur_date.strftime("%u").to_i, (cur_date.day%7 == 0 ? cur_date.day/7 : (cur_date.day/7 + 1) ))
+    end
 end
