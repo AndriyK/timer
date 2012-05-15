@@ -8,7 +8,7 @@ class WorksController < ApplicationController
     @work = Work.new
     @title = current_user.name
     @current_day = date
-    @routines = get_suitable_routines
+    @routines = get_suitable_routines date
   end
 
   def new
@@ -102,11 +102,30 @@ class WorksController < ApplicationController
       parts[1].to_i if parts[1]
     end
 
-    def get_suitable_routines
-      cur_date = date
-      params[:week_day] = cur_date.strftime("%u").to_i
-      params[:week] = cur_date.day%7 == 0 ? cur_date.day/7 : (cur_date.day/7 + 1)
-      params[:date] = cur_date.day
-      current_user.routines.where("days like '%?%' OR weeks like '%?%'", cur_date.strftime("%u").to_i, (cur_date.day%7 == 0 ? cur_date.day/7 : (cur_date.day/7 + 1) ))
+    def get_suitable_routines cur_date
+      routins = current_user.routines.where("days like '%?%' OR weeks like '%?%'", cur_date.strftime("%u").to_i, (cur_date.day%7 == 0 ? cur_date.day/7 : (cur_date.day/7 + 1) ))
+      routins_for_date = get_routins_per_date cur_date
+      (routins + routins_for_date).uniq
     end
+
+    def get_routins_per_date cur_date
+      result_routins = []
+      current_user.routines.where("dates != ''").each do |routine|
+        dates = routine.dates.split(",")
+        dates.each do |date|
+          if date.strip.include?("-")
+            parts = date.strip.split("-")
+            if parts[0].to_i <= cur_date.day && cur_date.day <= parts[1].to_i
+              result_routins << routine
+              break
+            end
+          elsif date.strip.to_i == cur_date.day
+            result_routins << routine
+            break
+          end
+        end
+      end
+      result_routins
+    end
+
 end

@@ -19,6 +19,9 @@ class RoutinesController < ApplicationController
 
   def update
     params[:routine][:category_ids] ||= []
+    params[:routine][:days] ||= ""
+    params[:routine][:weeks] ||= ""
+
     if @routine.update_attributes(params[:routine])
       flash[:success] = "Routine updated."
       redirect_to routine_path(current_user)
