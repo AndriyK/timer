@@ -53,7 +53,7 @@ class WorksController < ApplicationController
   private
 
     def user_works
-      @works = current_user.works.where( :from => date .. (date + 1.day) ).order('"from"')
+      @works = current_user.works.where( :from => date.midnight .. (date.midnight + 1.day - 1) ).order('"from"')
     end
 
     def authorized_user
