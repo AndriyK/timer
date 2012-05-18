@@ -5,11 +5,14 @@
   <button type="submit" class="btn btn-mini">Filter</button>
 </form>
 
-
 <div class="pull-right" style="padding-top: 5px;">
     <%= link_to "Add content", new_source_path, :class=>'btn btn-info btn-mini' %>
 </div>
 <div class="clearfix"></div>
+
+<div class="apple_pagination">
+    <%= will_paginate %>
+</div>
 
 <%= render 'shared/flash_message' %>
 
@@ -18,3 +21,7 @@
     <%= render @sources %>
 
 <% end %>
+
+<div class="apple_pagination">
+  <%= will_paginate %>
+</div>

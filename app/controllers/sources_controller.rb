@@ -6,7 +6,7 @@ class SourcesController < ApplicationController
 
   def show
     @user = current_user
-    @sources = @user.sources
+    @sources = @user.sources.order('created_at desc').paginate(:page => params[:page], :per_page => 5)
     @title = @user.name + ' sources'
   end
 
