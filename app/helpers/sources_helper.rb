@@ -30,4 +30,12 @@ module SourcesHelper
     tags.join(',')
   end
 
+  def get_user_tags
+    tags = []
+    current_user.tags.each do |tag|
+      tags << '"' + tag.name + '"'
+    end
+    tags.join(',')
+  end
+
 end

@@ -6,7 +6,12 @@ class SourcesController < ApplicationController
 
   def show
     @user = current_user
-    @sources = @user.sources.order('created_at desc').paginate(:page => params[:page], :per_page => 5)
+    if params[:tag_name] && !params[:tag_name].empty?
+      @sources = @user.sources.joins(:tags).where(:tags=>{:name => params[:tag_name]}).paginate(:page => params[:page], :per_page => 5)
+      flash.now[:error] = "There no resources with tag: " + params[:tag_name] if @sources.empty?
+    else
+      @sources = @user.sources.order('created_at desc').paginate(:page => params[:page], :per_page => 5)
+    end
     @title = @user.name + ' sources'
   end
 

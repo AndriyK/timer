@@ -2,15 +2,6 @@
 
 <%= f.text_area :content, :size=>"43x4" %>
 
-<!--
-<% for tag in current_user.tags %>
-    <div>
-      <%= check_box_tag "source[tag_ids][]", tag.id, source_tag?(tag)%>
-      <%= tag.name %>
-    </div>
-<% end %>
--->
-
 <% if with_work? %>
     <%= hidden_field_tag("source[work_id]", params['work_id']) %>
 <% end %>
