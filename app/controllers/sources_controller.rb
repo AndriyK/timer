@@ -7,12 +7,20 @@ class SourcesController < ApplicationController
   def show
     @user = current_user
     if params[:tag_name] && !params[:tag_name].empty?
-      @sources = @user.sources.joins(:tags).where(:tags=>{:name => params[:tag_name]}).paginate(:page => params[:page], :per_page => 5)
+      @sources = @user.sources.joins(:tags).where(:tags=>{:name => params[:tag_name]})
       flash.now[:error] = "There no resources with tag: " + params[:tag_name] if @sources.empty?
     else
-      @sources = @user.sources.order('created_at desc').paginate(:page => params[:page], :per_page => 5)
+      @sources = @user.sources.order('created_at desc')
     end
+
+    #adjust pagination in case of deleting records
+    if params[:page].to_i > 1
+      params[:page] = params[:page].to_i-1 if @sources.count <= (params[:page].to_i-1)*5
+    end
+
+    @sources = @sources.paginate(:page => params[:page], :per_page => 5)
     @title = @user.name + ' sources'
+    store_location
   end
 
   def new
@@ -27,7 +35,7 @@ class SourcesController < ApplicationController
     else
       flash[:error] = "Sorry, content wasn't added. Reason: " + @source.errors.full_messages.first
     end
-    redirect_to source_path(current_user)
+    redirect_back_or source_path(current_user)
   end
 
   def edit
