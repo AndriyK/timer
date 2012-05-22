@@ -7,6 +7,7 @@ class TagsController < ApplicationController
     @tags = @user.tags
     @tag = Tag.new
     @title = @user.name + ' tags'
+    @tags_cloud = tags_cloud
   end
 
   def create
@@ -41,6 +42,28 @@ class TagsController < ApplicationController
     def authorized_user
       @tag = current_user.tags.find_by_id(params[:id])
       redirect_to root_path if @tag.nil?
+    end
+
+    def tags_cloud
+      user_tags = Tag.select('name, Count(*) as count')
+                    .joins('INNER JOIN "sources_tags" ON "tags".id="sources_tags".tag_id')
+                    .where('"tags".user_id = ?', current_user.id)
+                    .group('name')
+                    .order('count DESC')
+      tags_prepared = []
+      user_tags.each do |tag|
+        tags_prepared <<  tag.name + '(' + tag.count.to_s + ')'
+      end
+
+      tags_prepared.join(", ")
+
+=begin
+      Select name, Count(*) as count
+      From tags INNER JOIN sources_tags ON tags.id=sources_tags.tag_id
+      Where user_id = 1
+      Group by name
+      Order by count
+=end
     end
 
 end
