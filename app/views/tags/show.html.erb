@@ -31,5 +31,9 @@
 
 <div class="span3">
   <h6 style="text-align: center">Tags usage</h6>
-  <p> <%= @tags_cloud%> </p>
+  <p>
+    <% @tags_cloud.each do |tag_name, count|%>
+      <%= link_to tag_name+'('+count+')', source_path(current_user, :tag_name => tag_name) %>,
+    <% end %>
+  </p>
 </div>
