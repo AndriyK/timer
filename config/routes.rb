@@ -2,7 +2,13 @@ Timer::Application.routes.draw do
 
   resources :users
   resources :sessions, :only => [:new, :create, :destroy]
-  resources :works
+  resources :works do
+    member do
+      get 'week'
+      get 'month'
+    end
+  end
+
   resources :categories
   resources :tags
   resources :sources

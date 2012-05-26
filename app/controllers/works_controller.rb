@@ -5,10 +5,21 @@ class WorksController < ApplicationController
   before_filter :user_works, :only => [:show, :edit, :new]
 
   def show
+    @day = true
     @work = Work.new
     @title = current_user.name
     @current_day = date
     @routines = get_suitable_routines date
+  end
+
+  def week
+    @week = true
+    @current_week = get_week
+    @week_interval = get_week_dates @current_week
+  end
+
+  def month
+    @month = true
   end
 
   def new
@@ -79,6 +90,20 @@ class WorksController < ApplicationController
 
     def save_custom_date
       session[:current_date] = params['d'] if params['d']
+    end
+
+    def get_week
+      return params[:w].to_i if params[:w]
+      day = date
+      day.strftime('%W').to_i
+    end
+
+    def get_week_dates week
+      wk_begin = Date.commercial(2012, week, 1) #TODO: add function for year detecting
+      wk_end = Date.commercial(2012, week, 7)
+      begin_format = ( wk_begin.strftime("%m") == wk_end.strftime("%m") ) ? '%d' : '%d %b'
+      end_format = "%d %b %Y"
+      wk_begin.strftime(begin_format) + ' - ' + wk_end.strftime(end_format)
     end
 
     def create_work_from_routine routine

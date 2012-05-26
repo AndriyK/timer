@@ -50,23 +50,11 @@ class TagsController < ApplicationController
                     .where('"tags".user_id = ?', current_user.id)
                     .group('name')
                     .order('count DESC')
-      #tags_prepared = []
       tags_prepared = {}
       user_tags.each do |tag|
-        #tags_prepared <<  tag.name + '(' + tag.count.to_s + ')'
         tags_prepared[tag.name] = tag.count.to_s
       end
-
       tags_prepared
-      #tags_prepared.join(", ")
-
-=begin
-      Select name, Count(*) as count
-      From tags INNER JOIN sources_tags ON tags.id=sources_tags.tag_id
-      Where user_id = 1
-      Group by name
-      Order by count
-=end
     end
 
 end

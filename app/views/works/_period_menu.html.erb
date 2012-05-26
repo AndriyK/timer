@@ -1,0 +1,21 @@
+<div style="padding-left: 37%">
+  <ul class="nav nav-pills">
+    <% if @day %>
+        <li class="active"><a href="#">Day</a></li>
+    <% else %>
+        <li><%= link_to "Day", work_path(current_user)%></li>
+    <% end %>
+
+    <% if @week %>
+        <li class="active"><a href="#">Week</a></li>
+    <% else %>
+        <li ><%= link_to "Week", week_work_path(current_user)%></li>
+    <% end %>
+
+    <% if @month %>
+        <li class="active"><a href="#">Month</a></li>
+    <% else %>
+        <li ><%= link_to "Month", month_work_path(current_user)%></li>
+    <% end %>
+  </ul>
+</div>

@@ -1,0 +1,13 @@
+<div class="current_date">
+  <%= link_to "<<", week_work_path(current_user, :w=>@current_week-1), :class=>"btn btn-mini " %>
+  <%= @week_interval %> (<i>week: <%=@current_week%></i>)
+  <% if  @current_week != Time.now.strftime("%d %b %Y")%>
+      <%= link_to ">>", week_work_path(current_user, :w=>@current_week+1), :class=>"btn btn-mini " %>
+  <% end %>
+
+  <div style="float:left;margin-right: 5px;">
+    <form method="get" action="<%= week_work_path(current_user) %>" class="form-inline" id="datepicker_form">
+      <input type="hidden" name="w" id="datepicker" />
+    </form>
+  </div>
+</div>
