@@ -1,7 +1,7 @@
 class WorksController < ApplicationController
   before_filter :authenticate
   before_filter :authorized_user, :only => [:edit, :update, :destroy]
-  before_filter :save_custom_date, :only => [:show]
+  before_filter :save_custom_date, :only => [:show, :week]
   before_filter :user_works, :only => [:show, :edit, :new]
 
   def show

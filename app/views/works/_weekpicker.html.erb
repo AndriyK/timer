@@ -1,13 +1,34 @@
 <div class="current_date">
   <%= link_to "<<", week_work_path(current_user, :w=>@current_week-1), :class=>"btn btn-mini " %>
   <%= @week_interval %> (<i>week: <%=@current_week%></i>)
-  <% if  @current_week != Time.now.strftime("%d %b %Y")%>
+  <% if  @current_week != Time.now.strftime("%W").to_i%>
       <%= link_to ">>", week_work_path(current_user, :w=>@current_week+1), :class=>"btn btn-mini " %>
   <% end %>
 
   <div style="float:left;margin-right: 5px;">
     <form method="get" action="<%= week_work_path(current_user) %>" class="form-inline" id="datepicker_form">
-      <input type="hidden" name="w" id="datepicker" />
+      <input type="hidden" name="d" id="datepicker" />
     </form>
   </div>
 </div>
+
+<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/redmond/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+
+<script language="JavaScript">
+    $("#datepicker").datepicker({
+        buttonImage: '/images/calendar.gif',
+        buttonImageOnly: true,
+        showWeek: true,
+        firstDay: 1,
+        showOtherMonths: true,
+        selectOtherMonths: true,
+        showOn: 'button',
+        dateFormat: "yy-mm-dd",
+        maxDate: +0,
+        onSelect: function(dateText, inst) {
+            $("#datepicker_form").submit();
+        }
+    });
+</script>
+
