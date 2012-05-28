@@ -16,6 +16,7 @@ class WorksController < ApplicationController
     @week = true
     @current_week = get_week
     @week_interval = get_week_dates @current_week
+    @week_start_day = get_start_week_date @current_week
   end
 
   def month
@@ -99,11 +100,24 @@ class WorksController < ApplicationController
     end
 
     def get_week_dates week
-      wk_begin = Date.commercial(2012, week, 1) #TODO: add function for year detecting
-      wk_end = Date.commercial(2012, week, 7)
+      wk_begin = get_start_week_date(week)
+      wk_end = get_end_week_date(week)
       begin_format = ( wk_begin.strftime("%m") == wk_end.strftime("%m") ) ? '%d' : '%d %b'
       end_format = "%d %b %Y"
       wk_begin.strftime(begin_format) + ' - ' + wk_end.strftime(end_format)
+    end
+
+    def get_start_week_date week_number
+      Date.commercial(get_current_year, week_number, 1)
+    end
+
+    def get_end_week_date week_number
+      Date.commercial(get_current_year, week_number, 7)
+    end
+
+    def get_current_year
+      current_date = date
+      current_date.strftime("%Y").to_i
     end
 
     def create_work_from_routine routine

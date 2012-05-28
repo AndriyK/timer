@@ -2,4 +2,29 @@
 
 <%= render 'weekpicker' %>
 
-week presentation would be here
+<table class="table table-striped">
+  <thead>
+      <tr>
+        <th width="10%">Day</th>
+        <th width="40%">Overview</th>
+        <th width="40%"></th>
+        <th width="10%"></th>
+      </tr>
+  </thead>
+  <tbody>
+      <% 7.times do  %>
+      <tr >
+        <td><%= humanize_days(@week_start_day.cwday().to_s)%>,<br> <%= @week_start_day.mday()%>/<%= @week_start_day.mon()%></td>
+        <td>Filled at 12%, 1h 20 min from 24h.</td>
+        <td>
+          <div class="progress">
+            <div class="bar"
+                 style="width: 60%;"></div>
+          </div>
+        </td>
+        <td>Edit</td>
+      </tr>
+      <% @week_start_day += 1.day %>
+      <% end %>
+  </tbody>
+</table>
