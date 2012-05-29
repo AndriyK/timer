@@ -17,6 +17,7 @@ class WorksController < ApplicationController
     @current_week = get_week
     @week_interval = get_week_dates @current_week
     @week_start_day = get_start_week_date @current_week
+    @works_per_day = get_works_per_day @week_start_day
   end
 
   def month
@@ -118,6 +119,18 @@ class WorksController < ApplicationController
     def get_current_year
       current_date = date
       current_date.strftime("%Y").to_i
+    end
+
+    def get_works_per_day start_day
+      report = {}
+      works = current_user.works
+                          .select('duration, "from"')
+                          .where(:from => start_day.midnight .. (start_day.midnight + 7.day - 1))
+      works.each do |work|
+        day = work.from.day
+        report[day] ?  report[day] += work.duration : report[day] = work.duration
+      end
+      report
     end
 
     def create_work_from_routine routine

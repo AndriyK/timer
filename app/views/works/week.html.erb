@@ -12,14 +12,27 @@
       </tr>
   </thead>
   <tbody>
-      <% 7.times do  %>
+      <% 7.times do |item| %>
       <tr >
         <td><%= humanize_days(@week_start_day.cwday().to_s)%>,<br> <%= @week_start_day.mday()%>/<%= @week_start_day.mon()%></td>
-        <td>Filled at 12%, 1h 20 min from 24h.</td>
         <td>
-          <div class="progress">
+          <% if @works_per_day[@week_start_day.mday()]
+               total_min = @works_per_day[@week_start_day.mday()]
+               percent = (total_min*100)/(24*60)
+          %>
+               Filled at <%=percent%>%, <%= humanize_duration total_min  %> from 24 h.
+          <% else %>
+               <% if @week_start_day > Date.today %>
+                  <i>Future date</i>
+               <% else %>
+                  <i>No activity for current date</i>
+               <% end %>
+          <% end %>
+        </td>
+        <td>
+          <div class="progress progress-striped">
             <div class="bar"
-                 style="width: 60%;"></div>
+                 style="width: <%= percent || 0 %>%;"></div>
           </div>
         </td>
         <td>Edit</td>
