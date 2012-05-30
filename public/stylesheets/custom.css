@@ -44,3 +44,7 @@
 .time {
     width: 50px;
 }
+
+td.valign_middle  {
+    vertical-align: middle;
+}
