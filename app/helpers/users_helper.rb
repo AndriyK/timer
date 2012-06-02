@@ -20,11 +20,11 @@ module UsersHelper
   end
 
   def day_before( date )
-    date - 60*60*24
+    (date - 1.day).strftime("%Y-%m-%d")
   end
 
   def day_after( date )
-    date + 60*60*24
+    (date + 1.day).strftime("%Y-%m-%d")
   end
 
   def get_name_for_timeline date

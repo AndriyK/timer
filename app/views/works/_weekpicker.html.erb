@@ -1,8 +1,8 @@
 <div class="current_date">
-  <%= link_to "<<", week_work_path(current_user, :w=>@current_week-1), :class=>"btn btn-mini " %>
-  <%= @week_interval %> (<i>week: <%=@current_week%></i>)
-  <% if  @current_week != Time.now.strftime("%W").to_i%>
-      <%= link_to ">>", week_work_path(current_user, :w=>@current_week+1), :class=>"btn btn-mini " %>
+  <%= link_to "<<", week_work_path(current_user, :d=>(@week_start_day-1.week)), :class=>"btn btn-mini " %>
+  <%= @week_interval %> (<i>week: <%=@week_start_day.cweek%></i>)
+  <% if  (@week_start_day+7.day) < Date.today%>
+      <%= link_to ">>", week_work_path(current_user, :d=>(@week_start_day+1.week)), :class=>"btn btn-mini " %>
   <% end %>
 
   <div style="float:left;margin-right: 5px;">

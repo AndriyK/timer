@@ -1,7 +1,7 @@
 <div class="current_date">
   <%= link_to "<<", work_path(current_user, :d=>day_before(@current_day)), :class=>"btn btn-mini " %>
   <%= @current_day.strftime("%A, %d %b %Y") %>
-  <% if  @current_day.strftime("%d %b %Y") != Time.now.strftime("%d %b %Y")%>
+  <% if  @current_day < Time.now.midnight%>
       <%= link_to ">>", work_path(current_user, :d=>day_after(@current_day)), :class=>"btn btn-mini " %>
   <% end %>
 

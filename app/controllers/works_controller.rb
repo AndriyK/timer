@@ -1,7 +1,7 @@
 class WorksController < ApplicationController
   before_filter :authenticate
   before_filter :authorized_user, :only => [:edit, :update, :destroy]
-  before_filter :save_custom_date, :only => [:show, :week]
+  before_filter :save_custom_date, :only => [:show, :week, :month]
   before_filter :user_works, :only => [:show, :edit, :new]
 
   def show
@@ -14,14 +14,14 @@ class WorksController < ApplicationController
 
   def week
     @week = true
-    @current_week = get_week
-    @week_interval = get_week_dates @current_week
-    @week_start_day = get_start_week_date @current_week
+    @week_start_day = get_start_week_date
+    @week_interval = get_week_dates
     @works_per_day = get_works_per_day @week_start_day
   end
 
   def month
     @month = true
+    @month_start_day = get_start_month_date
   end
 
   def new
@@ -91,34 +91,45 @@ class WorksController < ApplicationController
     end
 
     def save_custom_date
-      session[:current_date] = params['d'] if params['d']
+      session[:current_date] = params['d'] if params['d'] && is_correct_date(params['d'])
+    end
+
+    def is_correct_date param_date
+      parts = param_date.split("-")
+      time = Time.utc(parts[0], parts[1], parts[2])
+      if time.midnight < Time.now.midnight + 1.day
+        return true
+      end
+      rescue
+      NIL
     end
 
     def get_week
-      return params[:w].to_i if params[:w]
-      day = date
-      day.strftime('%W').to_i
+      date.strftime('%W').to_i
     end
 
-    def get_week_dates week
-      wk_begin = get_start_week_date(week)
-      wk_end = get_end_week_date(week)
+    def get_week_dates
+      wk_begin = get_start_week_date
+      wk_end = get_end_week_date
       begin_format = ( wk_begin.strftime("%m") == wk_end.strftime("%m") ) ? '%d' : '%d %b'
       end_format = "%d %b %Y"
       wk_begin.strftime(begin_format) + ' - ' + wk_end.strftime(end_format)
     end
 
-    def get_start_week_date week_number
-      Date.commercial(get_current_year, week_number, 1)
+    def get_start_week_date
+      Date.commercial(get_current_year, date.strftime("%W").to_i, 1)
     end
 
-    def get_end_week_date week_number
-      Date.commercial(get_current_year, week_number, 7)
+    def get_end_week_date
+      Date.commercial(get_current_year, date.strftime("%W").to_i, 7)
+    end
+
+    def get_start_month_date
+      Date.civil(get_current_year, date.strftime("%m").to_i, 1)
     end
 
     def get_current_year
-      current_date = date
-      current_date.strftime("%Y").to_i
+      date.strftime("%Y").to_i
     end
 
     def get_works_per_day start_day

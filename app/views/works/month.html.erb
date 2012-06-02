@@ -1,3 +1,16 @@
 <%= render 'period_menu' %>
 
-month presentation would be here
+<div class="current_date">
+  <%= link_to "<<", month_work_path(current_user, :d=>@month_start_day-1.month), :class=>"btn btn-mini " %>
+  <%= @month_start_day.strftime("%B") + ', ' + @month_start_day.strftime("%Y") %>
+  <% if  @month_start_day+1.month < Date.today%>
+      <%= link_to ">>", month_work_path(current_user, :d=>@month_start_day+1.month), :class=>"btn btn-mini " %>
+  <% end %>
+
+  <!--
+  <div style="float:left;margin-right: 5px;">
+    <form method="get" action="<%= month_work_path(current_user) %>" class="form-inline" id="datepicker_form">
+      <input type="hidden" name="m" id="datepicker" />
+    </form>
+  </div>-->
+</div>
