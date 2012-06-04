@@ -1,7 +1,7 @@
 <div class="current_date">
   <%= link_to "<<", week_work_path(current_user, :d=>(@week_start_day-1.week)), :class=>"btn btn-mini " %>
   <%= @week_interval %> (<i>week: <%=@week_start_day.cweek%></i>)
-  <% if  (@week_start_day+7.day) < Date.today%>
+  <% if  (@week_start_day+7.day) <= Date.today%>
       <%= link_to ">>", week_work_path(current_user, :d=>(@week_start_day+1.week)), :class=>"btn btn-mini " %>
   <% end %>
 

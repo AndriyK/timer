@@ -48,3 +48,8 @@
 td.valign_middle  {
     vertical-align: middle;
 }
+
+.month_table td {
+    width: 14%;
+    height: 90px;
+}

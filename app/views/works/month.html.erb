@@ -6,11 +6,56 @@
   <% if  @month_start_day+1.month < Date.today%>
       <%= link_to ">>", month_work_path(current_user, :d=>@month_start_day+1.month), :class=>"btn btn-mini " %>
   <% end %>
-
-  <!--
-  <div style="float:left;margin-right: 5px;">
-    <form method="get" action="<%= month_work_path(current_user) %>" class="form-inline" id="datepicker_form">
-      <input type="hidden" name="m" id="datepicker" />
-    </form>
-  </div>-->
 </div>
+
+<table class="table table-bordered month_table">
+  <thead>
+  <tr>
+    <th>Monday</th>
+    <th>Tuesday</th>
+    <th>Wednesday</th>
+    <th>Thursday</th>
+    <th>Friday</th>
+    <th>Saturday</th>
+    <th>Sunday</th>
+  </tr>
+  </thead>
+  <tbody>
+  <%
+     start_from_day = @month_start_day.strftime("%u").to_i
+     days_in_month = get_days_in_month(@month_start_day)
+     cells_amount = ((start_from_day - 1  + days_in_month) <= 35) ? 35 :42
+  %>
+  <% cells_amount.times do |cell|%>
+    <% if cell%7 == 0  %>
+      <tr>
+    <% end %>
+      <td>
+        <%
+           if (cell + 1).between?(start_from_day, days_in_month + start_from_day -1)
+            month_date = @month_start_day + (cell + 1 - start_from_day).days
+        %>
+            <% if month_date <= Date.today %>
+              <%= link_to(month_date.mday, work_path(current_user, :d=>month_date)) %>
+              <% if @works_per_day[month_date.mday]
+                   total_min = @works_per_day[month_date.mday]
+                   percent = (total_min*100)/(24*60)
+              %>
+                <br><%= humanize_duration total_min %>
+                <div class="progress progress-striped">
+                  <div class="bar"
+                     style="width: <%= percent%>%;"><%= percent %>%</div>
+                </div>
+              <% end %>
+            <% else %>
+              <%= month_date.mday %>
+            <% end %>
+        <% end %>
+      </td>
+    <% if (cell-6)%7 == 0  %>
+      </tr>
+    <% end %>
+  <% end %>
+  </tbody>
+</table>
+

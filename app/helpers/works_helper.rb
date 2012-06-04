@@ -1,17 +1,9 @@
 module WorksHelper
 
   include RoutinesHelper
-=begin
-  def week_before current_start_week
-    wdate = Date.commercial(2012, current_week, 1)
-    wdate = wdate - 1.week
-    wdate.cweek
-  end
 
-  def week_after current_week
-    wdate = Date.commercial(2012, current_week, 1)
-    wdate = wdate + 1.week
-    wdate.cweek
+  def get_days_in_month date
+    months = { 1=>31, 2=>(Date.leap?(date.year) ? 29 :28), 3=>31, 4=>30, 5=>31, 6=>30, 7=>31, 8=>31, 9=>30, 10=>31, 11=>30, 12=>31}
+    months[date.mon]
   end
-=end
 end
