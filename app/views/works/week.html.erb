@@ -21,7 +21,7 @@
         <td class="valign_middle">
           <% if @works_per_day[@week_start_day.mday()]
                total_min = @works_per_day[@week_start_day.mday()]
-               percent = (total_min*100)/(24*60)
+               percent = ((total_min*100))/(24*60) + 1
           %>
                Reported <b><%= humanize_duration total_min  %></b> for this day from 24 h.
           <% else %>

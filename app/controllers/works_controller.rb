@@ -3,6 +3,7 @@ class WorksController < ApplicationController
   before_filter :authorized_user, :only => [:edit, :update, :destroy]
   before_filter :save_custom_date, :only => [:show, :week, :month]
   before_filter :user_works, :only => [:show, :edit, :new]
+  before_filter :correct_midnight_time, :only => [:create, :update]
 
   def show
     @day = true
@@ -66,10 +67,29 @@ class WorksController < ApplicationController
 
   private
 
+
+    # Method select the user's works for user
+    # is executed in 'before_filter' for show, edit, new actions
+    #
+    # * *Args*    :
+    #   no
+    # * *Returns* :
+    #   nothing (set instance variable @works)
+    #
     def user_works
       @works = current_user.works.where( :from => date.midnight .. (date.midnight + 1.day - 1) ).order('"from"')
     end
 
+    # Method select the user's works for user
+    # is executed in 'before_filter' for show, edit, new actions
+    #
+    # * *Args*    :
+    #   - ++ ->
+    # * *Returns* :
+    #   -
+    # * *Raises* :
+    #   - ++ ->
+    #
     def authorized_user
       @work = current_user.works.find_by_id(params[:id])
       redirect_to root_path if @work.nil?
@@ -190,6 +210,13 @@ class WorksController < ApplicationController
         end
       end
       result_routins
+    end
+
+    def correct_midnight_time
+      if params[:work]['to(4i)'] == '00' && params[:work]['to(5i)'] == '00'
+        params[:work]['to(4i)'] = '23'
+        params[:work]['to(5i)'] = '59'
+      end
     end
 
 end
