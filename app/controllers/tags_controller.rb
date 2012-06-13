@@ -39,11 +39,24 @@ class TagsController < ApplicationController
 
   private
 
+    # Method check if is viewed tag is coorect ( belongs to current user and is in DB)
+    # before filter for destroy, edit, update
+    #
+    # * *Args*    :
+    #   no (it takes tag id from params[:id])
+    # * *Returns* :
+    #   nothing (in case of wrong tag id user is redirected HP)
     def authorized_user
       @tag = current_user.tags.find_by_id(params[:id])
       redirect_to root_path if @tag.nil?
     end
 
+    # Method select all user tags and count the frequency for each
+    #
+    # * *Args*    :
+    #   no (search is for current_user.id)
+    # * *Returns* :
+    #   - Hash of prepared tags (tags_prepared{'tag_name'=>'2'})
     def tags_cloud
       user_tags = Tag.select('name, Count(*) as count')
                     .joins('INNER JOIN "sources_tags" ON "tags".id="sources_tags".tag_id')

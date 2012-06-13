@@ -61,11 +61,24 @@ class SourcesController < ApplicationController
 
   private
 
+    # Method check if going to be viewed correct source ( belongs to current user)
+    # is before_filter for destroy, edit, update
+    # * *Args*    :
+    #   no (source id is taken from params[:id])
+    # * *Returns* :
+    #   nothing (in case of wrong source id user is redirected to HP)
     def authorized_user
       @source = current_user.sources.find_by_id(params[:id])
       redirect_to root_path if @source.nil?
     end
 
+    # Method prepare parameters for adding new source, are populated params[:source][:tag_ids] with correct tag ids as we get tag names in get.
+    # If provided tag doesn't exists for current user it is created.
+    #
+    # * *Args*    :
+    #   no (is proceeded params[:source][:tags], where tags is a string of tags separated by comma)
+    # * *Returns* :
+    #   nothing (is formed params[:source][:tag_ids])
     def prepare_tags_id
       tags_ids = []
       if params[:source][:tags]

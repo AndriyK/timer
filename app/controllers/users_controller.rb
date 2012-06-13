@@ -40,6 +40,12 @@ class UsersController < ApplicationController
 
   private
 
+    # Method checks if provided in GET user id is correct (user with such id is in database and is authorized)
+    #
+    # * *Args*    :
+    #   no (user id is taken from GET - params[;id]])
+    # * *Returns* :
+    #   nothing (if user not correct he is returned to HP)
     def correct_user
       @user = User.find(params[:id])
       redirect_to(root_path) unless current_user?(@user)
