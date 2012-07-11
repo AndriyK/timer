@@ -28,10 +28,12 @@
         // make validation before adding new activity
         from_h = $("#work_from_4i").val();
         from_m = $("#work_from_5i").val();
+
         to_h = $("#work_to_4i").val();
         to_m = $("#work_to_5i").val();
-        from_id = parseInt(from_h)*60 + parseInt(from_m);
-        to_id = parseInt(to_h)*60 + parseInt(to_m);
+
+        from_id = parseInt(from_h*60) + parseInt(from_m);
+        to_id = parseInt(to_h*60) + parseInt(to_m);
 
         //special case - 23:59 (selected 00;00)
         if( to_h == "00" && to_m == "00" ) {
