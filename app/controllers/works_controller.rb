@@ -291,7 +291,9 @@ class WorksController < ApplicationController
     # * *Returns* :
     #   the list of available routins
     def get_suitable_routines cur_date
-      routins = current_user.routines.where("days like '%?%' OR weeks like '%?%'", cur_date.strftime("%u").to_i, (cur_date.day%7 == 0 ? cur_date.day/7 : (cur_date.day/7 + 1) ))
+      routins = current_user.routines
+                          .where("days like '%?%' OR weeks like '%?%'", cur_date.strftime("%u").to_i, (cur_date.day%7 == 0 ? cur_date.day/7 : (cur_date.day/7 + 1) ))
+                          .order("'from'")
       routins_for_date = get_routins_per_date cur_date
       (routins + routins_for_date).uniq
     end
