@@ -3,11 +3,10 @@ class CategoriesController < ApplicationController
   before_filter :authorized_user, :only => [:edit, :update, :destroy]
   before_filter :prepare_pcategory, :only => [:create, :update]
   before_filter :clean_parent, :only => [:destroy]
-  before_filter :set_user, :only => [:show]
-  before_filter :prepare_categories_catalogue, :only => [:show]
+  before_filter :set_user, :only => [:show, :edit]
+  before_filter :prepare_categories_catalogue, :only => [:show, :edit]
 
   def show
-    @categories = get_categories_hash
     @category = Category.new
     @title = @user.name + ' categories'
   end
@@ -57,6 +56,7 @@ class CategoriesController < ApplicationController
     end
 
     def prepare_categories_catalogue
+      @categories = get_categories_hash
       @catalogue = {}
       set_categories_for_catalogue(0,0)
     end

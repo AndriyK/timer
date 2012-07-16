@@ -1,13 +1,16 @@
 module CategoriesHelper
 
-  def get_possible_parent_categories category
-    possible_categories = current_user.categories
-    if category.id then
-      #make restriction for parent category
-      possible_categories = current_user.categories.where("id != :current_category AND pcategory != :current_category", {:current_category=>category.id})
+  def get_possible_parent_categories edited_category
+    categories = []
+    if @catalogue && @categories
+      @catalogue.each do |id,level|
+        category = @categories[id]
+        if  category && (edited_category.id != category.id)
+          categories << { :id=>category.id, :name=>category.name, :level=>level }
+        end
+      end
     end
-    possible_categories.order("name")
+    categories
   end
 
 end
-

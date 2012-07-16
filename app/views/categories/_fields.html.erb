@@ -2,6 +2,21 @@
 
 <%= f.text_field :name, {:placeholder=>"Category name"} %>
 
-<%= collection_select(:category, :pcategory, get_possible_parent_categories(f.object), :id, :name, options = { :include_blank => "-- Parent category--"})%>
+<%
+    #collection_select(:category, :pcategory, get_possible_parent_categories(f.object), :id, :name, options = { :include_blank => "-- Parent category--"})
+%>
+
+<select id="category_pcategory" name="category[pcategory]">
+  <option value="">-- Parent category--</option>
+  <% parent_categories =  get_possible_parent_categories(f.object)
+     parent_categories.each do |parent_category|
+  %>
+      <option value="<%=parent_category[:id]%>" <%= 'selected' if f.object.pcategory == parent_category[:id]  %>>
+         <% parent_category[:level].times { %>&nbsp;&nbsp;<% } %>  <%=parent_category[:name]%>
+      </option>
+  <% end %>
+</select>
+
+
 
 <%= f.text_field :scope, {:placeholder=>"Scope"} %>
