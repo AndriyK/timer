@@ -1,17 +1,33 @@
-<% unless @user.categories.empty? %>
+<%
+   unless @catalogue.empty?
+%>
   <table class="table table-striped">
     <thead>
     <tr>
       <th width="5%">Category name</th>
-      <th width="5%">Parent category</th>
       <th width="8%">Scope</th>
       <th width="5%"></th>
       <th width="8%"></th>
     </tr>
     </thead>
 
-    <%= render @categories %>
-
+    <% @catalogue.each do |id,level|
+         category = @categories[id]
+         if category
+    %>
+        <tr>
+          <td>
+            <% level.times { %> &nbsp;&nbsp; <% } %>
+            <%= category.name %>
+          </td>
+          <td><%= category.scope %> </td>
+          <td><%= link_to "edit", edit_category_path(category), :class=>"btn btn-mini" %></td>
+          <td><%= link_to "delete", category, :method => :delete, :confirm => "You sure?", :title => category.name, :class=>"btn btn-mini btn-danger" %></td>
+        </tr>
+    <%
+         end
+       end
+    %>
   </table>
 <% end %>
 
@@ -28,4 +44,3 @@
 
     </fieldset>
 <% end %>
-
