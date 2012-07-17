@@ -9,12 +9,20 @@
 
 <div class="control-group">
   <label>Mark related categories</label>
-  <% for category in current_user.categories %>
+  <% @catalogue.each do |id,level|
+    category = @categories[id]
+    if category
+  %>
       <div style="padding-left: 10px;">
+        <% level.times { %>&nbsp;&nbsp;<% } %>
         <%= check_box_tag "work[category_ids][]", category.id, @work.categories.include?(category) %>
-          <%= category.name %>
+        <%= category.name %>
       </div>
-  <% end %>
+
+  <%
+    end
+  end
+  %>
 </div>
 
 <div class="control-group">

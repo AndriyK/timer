@@ -13,7 +13,20 @@
     <input id="work_to_3i" type="hidden" value="<%= @current_day.day %>" name="work[to(3i)]">
     <%= time_select("work", "to", {:minute_step => 10, :ignore_date=>true}, {:class=>"span1 time"}) %>
 
-    <%= collection_select(:work, :category_ids, current_user.categories, :id, :name, options = {:prompt => '--Category--'}, html_options = {:multiple => false, :size => 1, :class=>"span2"})%>
+    <select class="span2" id="work_category_ids" name="work[category_ids][]" size="1">
+      <option value="">--Category--</option>
+      <% @catalogue.each do |id,level|
+            category = @categories[id]
+            if category
+      %>
+            <option value="<%=category.id%>">
+                <% level.times { %>&nbsp;&nbsp;<% } %>  <%=category.name%>
+              </option>
+      <%
+             end
+         end
+      %>
+    </select>
 
     <%= f.text_field :description, {:class =>"input-large",:placeholder=>"Activity description"} %>
 
