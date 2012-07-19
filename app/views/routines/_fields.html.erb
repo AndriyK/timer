@@ -18,8 +18,19 @@
 
       <br><br>
       <label>Related category(-ies)</label><br>
-      <%= collection_select(:routine, :category_ids, current_user.categories.order("name"), :id, :name, options = {:_prompt => '--Category--'}, html_options = {:multiple => true, :size => 5, :class=>"span2"})%>
-
+      <select id="routine_category_ids" class="span2" size="5" name="routine[category_ids][]" multiple="multiple">
+        <% @catalogue.each do |id,level|
+          category = @categories[id]
+          if category
+        %>
+          <option value="<%=category.id%>">
+            <% level.times { %>&nbsp;&nbsp;<% } %>  <%=category.name%>
+          </option>
+        <%
+          end
+        end
+        %>
+      </select>
 
       <div class="controls" style="margin-top:10px;">
         <label class="checkbox inline" >Days: </label>

@@ -4,6 +4,7 @@ class RoutinesController < ApplicationController
   before_filter :authorized_user, :only => [:edit, :update, :destroy]
   before_filter :prepare_time_interval, :only =>[:create, :update]
   before_filter :prepare_routine_days, :only =>[:create, :update]
+  before_filter :prepare_categories_catalogue, :only => [:show, :edit, :new]
 
   def new
     if params[:work_id] && (work = current_user.works.find_by_id(params[:work_id]) )
@@ -15,6 +16,7 @@ class RoutinesController < ApplicationController
   end
 
   def edit
+    params[:t] = @routine.categories.include?(@categories[21])
   end
 
   def update
@@ -82,6 +84,29 @@ class RoutinesController < ApplicationController
 
     def get_time_only time
       time.strftime("%H") + ":" + time.strftime("%M")
+    end
+
+    def prepare_categories_catalogue
+      @categories = get_categories_hash
+      @catalogue = {}
+      set_categories_for_catalogue(0,0)
+    end
+
+    def set_categories_for_catalogue(pcat, level)
+      categories = current_user.categories.where(:pcategory=>pcat).order("pcategory,name")
+      categories.each do |category|
+        @catalogue[category.id] = level
+        set_categories_for_catalogue(category.id, level+1)
+      end
+    end
+
+    def get_categories_hash
+      all_categories = current_user.categories
+      categories_hash = {}
+      all_categories.each do |category|
+        categories_hash[category.id] = category
+      end
+      categories_hash
     end
 
 end

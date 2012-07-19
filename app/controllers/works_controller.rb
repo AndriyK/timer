@@ -15,7 +15,7 @@ class WorksController < ApplicationController
   before_filter :save_custom_date, :only => [:show, :week, :month]
   before_filter :user_works, :only => [:show, :edit, :new]
   before_filter :correct_midnight_time, :only => [:create, :update]
-  before_filter :prepare_categories_catalogue, :only => [:show, :edit]
+  before_filter :prepare_categories_catalogue, :only => [:show, :edit, :new]
 
   def show
     @day = true
