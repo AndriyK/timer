@@ -1,14 +1,18 @@
+require "categories_catalogue"
+
 class CategoriesController < ApplicationController
+
+  include CategoriesCatalogue
+
   before_filter :authenticate
   before_filter :authorized_user, :only => [:edit, :update, :destroy]
   before_filter :prepare_pcategory, :only => [:create, :update]
   before_filter :clean_parent, :only => [:destroy]
-  before_filter :set_user, :only => [:show, :edit]
   before_filter :prepare_categories_catalogue, :only => [:show, :edit]
 
   def show
     @category = Category.new
-    @title = @user.name + ' categories'
+    @title = current_user.name + ' categories'
   end
 
   def create
@@ -53,33 +57,6 @@ class CategoriesController < ApplicationController
 
     def clean_parent
       current_user.categories.update_all("pcategory=0", "pcategory="+@category.id.to_s)
-    end
-
-    def prepare_categories_catalogue
-      @categories = get_categories_hash
-      @catalogue = {}
-      set_categories_for_catalogue(0,0)
-    end
-
-    def set_categories_for_catalogue(pcat, level)
-      categories = @user.categories.where(:pcategory=>pcat).order("pcategory,name")
-      categories.each do |category|
-        @catalogue[category.id] = level
-        set_categories_for_catalogue(category.id, level+1)
-      end
-    end
-
-    def get_categories_hash
-      all_categories = @user.categories
-      categories_hash = {}
-      all_categories.each do |category|
-        categories_hash[category.id] = category
-      end
-      categories_hash
-    end
-
-    def set_user
-      @user = current_user
     end
 
 end
