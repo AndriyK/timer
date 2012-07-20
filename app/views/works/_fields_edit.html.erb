@@ -9,20 +9,21 @@
 
 <div class="control-group">
   <label>Mark related categories</label>
-  <% @catalogue.each do |id,level|
-    category = @categories[id]
-    if category
-  %>
-      <div style="padding-left: 10px;">
-        <% level.times { %>&nbsp;&nbsp;<% } %>
-        <%= check_box_tag "work[category_ids][]", category.id, @work.categories.include?(category) %>
-        <%= category.name %>
-      </div>
 
-  <%
-    end
-  end
-  %>
+  <select id="routine_category_ids" class="span2" size="5" name="routine[category_ids][]" multiple="multiple">
+    <% @catalogue.each do |id,level|
+      category = @categories[id]
+      if category
+    %>
+            <option value="<%=category.id%>" <%='selected' if @work.categories.include?(category)%> >
+              <% level.times { %>&nbsp;&nbsp;<% } %>  <%=category.name%>
+            </option>
+        <%
+           end
+           end
+        %>
+  </select>
+
 </div>
 
 <div class="control-group">

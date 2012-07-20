@@ -10,29 +10,24 @@
             );
             $(this).before(category_span);
 
-            // remove selected item
-            selected.remove();
+            // disable selected item  and select first element
+            selected.attr("disabled","disabled");
             // change text for first element
             if( $("option",this).size() > 1 ) {
                 $(":first", this).text("--One more category--");
             } else {
                 $(":first", this).text("--No categories--");
             }
+            $(":first", this).attr("selected", "selected");
 
 
             // add event listener for created element
             category_span.click( function () {
-                // restore deleted element in select
+                // enable disabled elementelement in select
                 //// get category id and name
                 category_id = $("input", $(this)).attr("value");
-                category_name = $(this).text();
-                //// add element to select
-                category_select = $("#work_category_ids");
-                category_select.append( $('<option value="'+category_id+'">'+category_name+'</option>'));
-                if( $("option",category_select).size() == 2 ) {
-                    $(":first", category_select).text("--One more category--");
-                }
-
+                //// enable element to select
+                $("#work_category_ids option[value='"+category_id+"']").removeAttr("disabled");
                 // delete label
                 $(this).remove();
             });
