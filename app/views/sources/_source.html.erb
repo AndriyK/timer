@@ -3,9 +3,15 @@
     Created at <%= source.created_at.strftime("%A, %d %b %Y") %>
   </div>
   <div class="pull-right">
-    Associated work link: <%= source.work_id %>
+    <% if source.work_id && source.work_id > 0 %>
+        <%work_details = get_work_details( source.work_id ) %>
+        Associated <a class="work_description" data-content="<%= work_details[:desc]%>" rel="popover" href="#" data-original-title="<%= work_details[:title]%>">work</a>
+
+    <% end %>
   </div>
   <div class="clearfix"></div>
+
+
 
   <hr style="margin-top:0px;">
 
@@ -27,5 +33,10 @@
 
 </div>
 
-
+<script type="text/javascript">
+    $(document).ready(function () {
+        // show tooltip with time
+        $(".work_description").popover({animation:false, placement:'left'});
+    });
+</script>
 

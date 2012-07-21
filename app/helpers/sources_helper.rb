@@ -69,4 +69,20 @@ module SourcesHelper
     tags.join(',')
   end
 
+  # Method return information about provided work
+  #
+  # * *Args*    :
+  #   work_id
+  # * *Returns* :
+  #   string of work details
+  def get_work_details work_id
+    work = current_user.works.find_by_id( work_id )
+    work_description = {'title'=> 'date', 'desc'=>'work description'}
+    if work
+      work_description[:title] = work.from.strftime("%F %H:%M-") + work.to.strftime("%H:%M")
+      work_description[:desc] = "Description: " + work.description + ". Duration: " + work.duration.to_s + " min."
+    end
+    work_description
+  end
+
 end

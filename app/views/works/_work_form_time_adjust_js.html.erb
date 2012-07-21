@@ -1,9 +1,8 @@
 <script type="text/javascript">
     $(document).ready(function () {
         //get first not filled time interval
-        from_id = $('td.timeline_minutes[style*="white;"]:first').attr("id");
+        from_id =parseInt($('td.timeline_minutes[style*="green;"]:last').attr("id")) + 10;
         //console.log(from_id );
-        //console.log(getHourFromId( from_id ) );
 
         // set from hour time
         $("#work_from_4i [value='"+getHourFromId(from_id)+"']").attr("selected", "selected");
@@ -11,7 +10,7 @@
         $("#work_from_5i [value='"+getMinutesFromId(from_id)+"']").attr("selected", "selected");
 
         // set to selects
-        to_id = parseInt(from_id) + 10
+        to_id = from_id + 60;
         $("#work_to_4i [value='"+getHourFromId(to_id)+"']").attr("selected", "selected");
         $("#work_to_5i [value='"+getMinutesFromId(to_id)+"']").attr("selected", "selected");
 

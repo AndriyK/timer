@@ -23,10 +23,8 @@
 
             // add event listener for created element
             category_span.click( function () {
-                // enable disabled elementelement in select
-                //// get category id and name
+                // enable disabled element in select
                 category_id = $("input", $(this)).attr("value");
-                //// enable element to select
                 $("#work_category_ids option[value='"+category_id+"']").removeAttr("disabled");
                 // delete label
                 $(this).remove();

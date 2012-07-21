@@ -22,7 +22,7 @@
           </button>
           <ul class="dropdown-menu" style="min-width: 100px;">
             <li>
-              <%= link_to "Add source", source_path(current_user, :work_id => work), :class => "btn-mini" %>
+              <%= link_to "Add source", new_source_path(:work_id => work), :class => "btn-mini" %>
             </li>
             <li>
               <%= link_to "Create routine", new_routine_path(:work_id=>work), :class => "btn-mini"  %>
