@@ -10,7 +10,7 @@
 <div class="control-group">
   <label>Mark related categories</label>
 
-  <select id="routine_category_ids" class="span2" size="5" name="routine[category_ids][]" multiple="multiple">
+  <select id="routine_category_ids" class="span2" size="5" name="work[category_ids][]" multiple="multiple">
     <% @catalogue.each do |id,level|
       category = @categories[id]
       if category
